@@ -1,0 +1,8 @@
+<div class="mb-3">
+  <label for="password" class="form-label">{{ label }}</label>
+  <ng-content></ng-content>
+
+  <div *ngFor="let error of errorKeys" class="d-block invalid-feedback">
+    {{ error }}
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<p>create-comment works!</p>
+
+<div [formGroup]="commentsFormGroup">
+  <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label">Comment name</label>
+    <input type="email" formControlName="name" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+  </div>
+  <div class="mb-3">
+    <label for="exampleFormControlTextarea1" class="form-label">Text</label>
+    <textarea class="form-control" formControlName="text" id="exampleFormControlTextarea1" rows="3"></textarea>
+  </div>
+</div>
+<button (click)="save()">Save topic</button>

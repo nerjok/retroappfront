@@ -1,0 +1,19 @@
+<h1>{{ topic?.name }}</h1>
+
+<p>{{ topic?.comment }}</p>
+
+<!-- {{ topic?.comments| json }} -->
+<ng-container *ngIf="comments">
+  <div *ngFor="let comment of comments">
+    <div class="card" style="width: 18rem">
+      <div class="card-body">
+        <h5 class="card-title">{{ comment.name }}</h5>
+        <p class="card-text">{{ comment.text }}</p>
+        <button (click)="editComment(comment)">Edit Comment</button>
+      </div>
+    </div>
+  </div>
+</ng-container>
+<ng-container *ngIf="topic && topic.id">
+  <app-create-comment [topicId]="topic.id"></app-create-comment>
+</ng-container>

@@ -1,0 +1,31 @@
+<p>topics works!</p>
+<button (click)="addTopic()">AddTopic</button>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">id</th>
+      <th scope="col">Name</th>
+      <th scope="col">Comment</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngIf="topics$ | async as topics">
+      <tr *ngFor="let topic of topics">
+        <th scope="row">1</th>
+        <td>{{ topic.id }}</td>
+        <td>{{ topic.name }}</td>
+        <td>{{ topic.comment }}</td>
+        <td>
+          <button (click)="editTopic(topic)">Edit</button>
+          <button (click)="viewTopic(topic)">View</button>
+        </td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>
+
+
+// add/edit topic
+// add/edit comment
