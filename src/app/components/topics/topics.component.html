@@ -1,31 +1,44 @@
-<p>topics works!</p>
-<button (click)="addTopic()">AddTopic</button>
+<button (click)="addTopic()" type="button" class="btn btn-primary">
+  AddTopic
+</button>
+
 <table class="table">
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">id</th>
       <th scope="col">Name</th>
       <th scope="col">Comment</th>
+      <th scope="col">Due Date</th>
       <th scope="col">Actions</th>
     </tr>
   </thead>
   <tbody>
     <ng-container *ngIf="topics$ | async as topics">
-      <tr *ngFor="let topic of topics">
-        <th scope="row">1</th>
-        <td>{{ topic.id }}</td>
+      <tr *ngFor="let topic of topics.data">
+        <th scope="row">#</th>
         <td>{{ topic.name }}</td>
         <td>{{ topic.comment }}</td>
+        <td>{{ topic.dueDate | date }}</td>
         <td>
-          <button (click)="editTopic(topic)">Edit</button>
-          <button (click)="viewTopic(topic)">View</button>
+          <div class="d-flex">
+            <button
+              (click)="editTopic(topic)"
+              type="button"
+              class="btn btn-secondary btn-sm"
+            >
+              <fa-icon [icon]="faEdit"></fa-icon>
+            </button>
+
+            <button
+              type="button"
+              class="btn btn-primary btn-sm"
+              (click)="viewTopic(topic)"
+            >
+              <fa-icon [icon]="faEye"></fa-icon>
+            </button>
+          </div>
         </td>
       </tr>
     </ng-container>
   </tbody>
 </table>
-
-
-// add/edit topic
-// add/edit comment

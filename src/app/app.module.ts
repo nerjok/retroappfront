@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule, routes } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -14,6 +14,9 @@ import { TopicFormComponent } from './components/topic-form/topic-form.component
 import { TopicViewComponent } from './components/topic-view/topic-view.component';
 import { CreateCommentComponent } from './components/comments/create-comment/create-comment.component';
 import { EditCommentComponent } from './components/comments/edit-comment/edit-comment.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { EditTopicComponent } from './components/edit-topic/edit-topic.component';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,7 @@ import { EditCommentComponent } from './components/comments/edit-comment/edit-co
     TopicViewComponent,
     CreateCommentComponent,
     EditCommentComponent,
+    EditTopicComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,9 +37,12 @@ import { EditCommentComponent } from './components/comments/edit-comment/edit-co
     ReactiveFormsModule,
     FormsModule,
     NgbModule,
-    SimpleFormGroupComponent
+    SimpleFormGroupComponent,
+    FontAwesomeModule
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  providers: [
+    // provideRouter(routes, withComponentInputBinding()),
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

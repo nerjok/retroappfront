@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import {
   TopicsService,
   Topic,
@@ -12,16 +13,17 @@ import {
   styleUrls: ['./topic-view.component.scss'],
 })
 export class TopicViewComponent {
-  readonly topic?: Topic | undefined;
-
+  // readonly topic?: Topic | undefined;
+  faEdit = faEdit;
+  @Input() topic!: Topic;
   get comments(): TopicComment[] | undefined {
     return this.topic?.comments;
   }
   constructor(private topicsService: TopicsService, private router: Router) {
     console.log(router.getCurrentNavigation()?.extras);
-    if (router.getCurrentNavigation()?.extras) {
-      this.topic = router.getCurrentNavigation()?.extras.state as Topic;
-    }
+    // if (router.getCurrentNavigation()?.extras) {
+    //   this.topic = router.getCurrentNavigation()?.extras.state as Topic;
+    // }
   }
 
   editComment(comment: TopicComment): void {

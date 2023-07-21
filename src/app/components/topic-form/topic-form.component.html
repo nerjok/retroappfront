@@ -1,13 +1,47 @@
-<p>topic-form works!</p>
-
 <div [formGroup]="topicsFormGroup">
   <div class="mb-3">
-    <label for="exampleFormControlInput1" class="form-label">Topic name</label>
-    <input type="email" formControlName="name" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+    <app-simple-form-group label="Topic name">
+      <input
+        type="text"
+        formControlName="name"
+        class="form-control"
+        id="title"
+        placeholder="name@example.com"
+      />
+    </app-simple-form-group>
   </div>
   <div class="mb-3">
-    <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-    <textarea class="form-control" formControlName="comment" id="exampleFormControlTextarea1" rows="3"></textarea>
+    <app-simple-form-group label="Description">
+      <textarea
+        class="form-control"
+        formControlName="comment"
+        id="description"
+        rows="3"
+      ></textarea>
+    </app-simple-form-group>
+  </div>
+  <div class="col-12">
+    <!-- <label for="dueDate" class="form-label">Due Date</label> -->
+    <app-simple-form-group label="DueDate">
+      <div class="input-group">
+        <input
+          id="dueDate"
+          class="form-control"
+          placeholder="yyyy-mm-dd"
+          name="dp"
+          formControlName="dueDate"
+          ngbDatepicker
+          #d="ngbDatepicker"
+        />
+        <button
+          class="btn btn-outline-secondary bi bi-calendar3"
+          (click)="d.toggle()"
+          type="button"
+        >
+          #
+        </button>
+      </div>
+    </app-simple-form-group>
   </div>
 </div>
-<button (click)="saveTopic()">Save topic</button>
+<button class="btn btn-primary btn-sm" (click)="saveTopic()">Save</button>

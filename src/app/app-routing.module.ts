@@ -1,12 +1,20 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { NgModule, inject } from '@angular/core';
+import {
+  ActivatedRouteSnapshot,
+  RouterModule,
+  RouterStateSnapshot,
+  Routes,
+} from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { TopicsComponent } from './components/topics/topics.component';
 import { TopicFormComponent } from './components/topic-form/topic-form.component';
 import { TopicViewComponent } from './components/topic-view/topic-view.component';
 import { EditCommentComponent } from './components/comments/edit-comment/edit-comment.component';
+import { EditTopicComponent } from './components/edit-topic/edit-topic.component';
+import { TopicsService } from './services/topics.service';
+import { topicResolveFn } from './topic.resolver';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   {
     path: '',
@@ -15,8 +23,20 @@ const routes: Routes = [
     children: [{ path: 'create', component: TopicFormComponent }],
   },
   { path: 'create', component: TopicFormComponent },
-  { path: 'edit', component: TopicFormComponent },
-  { path: 'view', component: TopicViewComponent },
+  {
+    path: 'edit/:id',
+    component: EditTopicComponent,
+    resolve: {
+      topic: topicResolveFn,
+    },
+  },
+  {
+    path: 'view/:id',
+    component: TopicViewComponent,
+    resolve: {
+      topic: topicResolveFn,
+    },
+  },
   { path: 'edit-comment', component: EditCommentComponent },
   {
     path: 'topics',
@@ -27,7 +47,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { bindToComponentInputs: true })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

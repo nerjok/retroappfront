@@ -1,4 +1,4 @@
-<h1>{{ topic?.name }}</h1>
+<h1>View {{ topic?.name }}</h1>
 
 <p>{{ topic?.comment }}</p>
 
@@ -9,11 +9,12 @@
       <div class="card-body">
         <h5 class="card-title">{{ comment.name }}</h5>
         <p class="card-text">{{ comment.text }}</p>
-        <button (click)="editComment(comment)">Edit Comment</button>
+        <button (click)="editComment(comment)" type="button" class="btn btn-primary"><fa-icon [icon]="faEdit"></fa-icon></button>
       </div>
     </div>
   </div>
 </ng-container>
 <ng-container *ngIf="topic && topic.id">
+  <h2>Add comment</h2>
   <app-create-comment [topicId]="topic.id"></app-create-comment>
 </ng-container>
