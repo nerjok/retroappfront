@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { AppRoutingModule, routes } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CommonModule } from '@angular/common';
@@ -41,6 +41,7 @@ import { provideRouter, withComponentInputBinding } from '@angular/router';
     FontAwesomeModule
   ],
   providers: [
+    provideHttpClient(),
     // provideRouter(routes, withComponentInputBinding()),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],

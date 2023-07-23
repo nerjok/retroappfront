@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { Observable, shareReplay } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 export interface Pager<T> {
   data: T[];
@@ -22,7 +23,8 @@ export interface TopicComment {
   name: string;
   text: string;
 }
-const baseUrl = 'https://localhost:7220/';
+const baseUrl = environment.apiUrl;
+
 @Injectable({ providedIn: 'root' })
 export class TopicsService {
   constructor(private http: HttpClient) {}
