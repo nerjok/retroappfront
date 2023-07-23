@@ -9,7 +9,7 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { NEVER, Observable, finalize, tap } from 'rxjs';
+import { NEVER, Observable, finalize, of, tap } from 'rxjs';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -27,7 +27,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
     if(!idToken) {
       this.router.navigateByUrl('login');
-      return NEVER;
+      return next.handle(req)
     }
     const clonedReq = idToken ?  req.clone({ headers }):req;
       return next.handle(clonedReq).pipe(
