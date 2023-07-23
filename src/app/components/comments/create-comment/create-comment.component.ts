@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommentService } from 'src/app/services/comments.service';
@@ -13,6 +13,8 @@ export class CreateCommentComponent {
   @Input() topicId!: string;
   @Input() commentId?: string | null;
   @Input() comment?: TopicComment;
+
+  @Output() commentAdded = new EventEmitter<TopicComment>();
 
   commentsFormGroup!: FormGroup<{
     name: FormControl<string | null>;
@@ -55,6 +57,13 @@ export class CreateCommentComponent {
         this.commentsFormGroup.reset();
         if (this.comment) {
           this.router.navigate(['..'], { relativeTo: this.route });
+          this.commentAdded.emit(this.comment);
+        } else {
+          const currentUrl = this.router.url;
+          // this.router.navigate([currentUrl]);
+            this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+              this.router.navigate([currentUrl]);
+          });
         }
       });
   }
