@@ -1,21 +1,17 @@
-import { NgModule, inject } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  RouterModule,
-  RouterStateSnapshot,
-  Routes,
-} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { TopicsComponent } from './components/topics/topics.component';
 import { TopicFormComponent } from './components/topic-form/topic-form.component';
 import { TopicViewComponent } from './components/topic-view/topic-view.component';
 import { EditCommentComponent } from './components/comments/edit-comment/edit-comment.component';
 import { EditTopicComponent } from './components/edit-topic/edit-topic.component';
-import { TopicsService } from './services/topics.service';
 import { topicResolveFn } from './topic.resolver';
+import { RegisterComponent } from './components/register/register.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
   {
     path: '',
     component: TopicsComponent,
@@ -47,7 +43,12 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { bindToComponentInputs: true, onSameUrlNavigation: 'reload' })],
+  imports: [
+    RouterModule.forRoot(routes, {
+      bindToComponentInputs: true,
+      onSameUrlNavigation: 'reload',
+    }),
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

@@ -1,0 +1,40 @@
+<form [formGroup]="form">
+  <fieldset>
+    <legend>{{ register ? 'Register' : 'Login' }}</legend>
+    <app-simple-form-group label="Email">
+      <input
+        type="text"
+        class="form-control"
+        id="username"
+        formControlName="email"
+      />
+    </app-simple-form-group>
+
+    <app-simple-form-group label="Password">
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        formControlName="password"
+      />
+    </app-simple-form-group>
+    <app-simple-form-group label="Repeat password" *ngIf="register">
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        formControlName="passwordRepeat"
+      />
+    </app-simple-form-group>
+    <div class="text-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
+  </fieldset>
+
+  <div class="form-buttons">
+    <button type="button" class="btn btn-primary me-1" (click)="login()">
+      {{ register ? 'Register' : 'Login' }}
+    </button>
+    <button type="button" class="btn btn-primary" (click)="changeAction()">
+      {{ register ? 'Login' : 'Register' }}
+    </button>
+  </div>
+</form>

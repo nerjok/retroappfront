@@ -9,24 +9,50 @@ export interface UserLogin {
   expiration: string;
 }
 
+export interface AuthCredentials {
+  userName: string,
+  password: string,
+  email: string
+}
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   baseUrl: string = environment.apiUrl;
+  private _authToken?: string;
+
+  get authToken(): string | undefined {
+    if (!this._authToken) {
+      this._authToken = localStorage.getItem('token') ?? undefined;
+    }
+    return this._authToken;
+  }
 
   constructor(private http: HttpClient) {}
 
   login(userName: string, password: string): Observable<UserLogin> {
     console.log('[service]');
-const url = `${this.baseUrl}api/users/login`;
-    this.http.post<UserLogin>(url, { userName, password }).subscribe((dt) => {
-        console.log(dt)
-      })
+
     return this.http
       .post<UserLogin>(`${this.baseUrl}api/users/login`, { userName, password })
       .pipe(
         tap((auth) => {
-          console.log('oneLog');
+          this.setSession(auth);
+        })
+      );
+  }
 
+  register(
+    userName: string,
+    password: string,
+    email: string
+  ): Observable<UserLogin> {
+    return this.http
+      .post<UserLogin>(`${this.baseUrl}api/users`, {
+        userName,
+        password,
+        email,
+      })
+      .pipe(
+        tap((auth) => {
           this.setSession(auth);
         })
       );

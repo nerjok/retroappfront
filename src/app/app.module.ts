@@ -17,6 +17,8 @@ import { EditCommentComponent } from './components/comments/edit-comment/edit-co
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { EditTopicComponent } from './components/edit-topic/edit-topic.component';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { RegisterComponent } from './components/register/register.component';
+import { AuthFormComponent } from './components/auth-form/auth-form.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { provideRouter, withComponentInputBinding } from '@angular/router';
     CreateCommentComponent,
     EditCommentComponent,
     EditTopicComponent,
+    RegisterComponent,
+    AuthFormComponent,
   ],
   imports: [
     BrowserModule,

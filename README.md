@@ -25,3 +25,21 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+docker run --rm -it -p 8080:80 nerjok/retroapp:latest
+docker build -t nerjok/retroapp .
+docker push nerjok/retroapp:latest
+
+dotnet ef database update
+dotnet ef migrations add DueDateToTopic -o Data/Migrations 
+dotnet ef migrations remove
+dotnet ef database update 20230617153836_DatesToComment
+
+fly deploy
+ flyctl auth token
+ fly launch
+ fly launch --image nerjok/retroapp:latest
+ fly secrets list
+  flyctl --help
+  flyctl auth signup
+  flyctl auth login
