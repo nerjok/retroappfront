@@ -19,6 +19,10 @@ import { EditTopicComponent } from './components/edit-topic/edit-topic.component
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { RegisterComponent } from './components/register/register.component';
 import { AuthFormComponent } from './components/auth-form/auth-form.component';
+import { MainInfoComponent } from './components/main-info/main-info.component';
+import { MainPageComponent } from './components/main-page/main-page.component';
+import { EditModalComponent } from './components/edit-modal/edit-modal.component';
+import { ModalModule } from './shared/components/modal/modal.module';
 
 @NgModule({
   declarations: [
@@ -32,6 +36,9 @@ import { AuthFormComponent } from './components/auth-form/auth-form.component';
     EditTopicComponent,
     RegisterComponent,
     AuthFormComponent,
+    MainInfoComponent,
+    MainPageComponent,
+    EditModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +49,8 @@ import { AuthFormComponent } from './components/auth-form/auth-form.component';
     FormsModule,
     NgbModule,
     SimpleFormGroupComponent,
-    FontAwesomeModule
+    FontAwesomeModule,
+    ModalModule
   ],
   providers: [
     provideHttpClient(),

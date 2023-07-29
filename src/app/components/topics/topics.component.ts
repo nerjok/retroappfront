@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { faEdit, faEye } from '@fortawesome/free-solid-svg-icons';
 import { Observable } from 'rxjs';
 import { Pager, Topic, TopicsService } from 'src/app/services/topics.service';
+import { EditModalComponent } from '../edit-modal/edit-modal.component';
+import { ModalService } from 'src/app/shared/components/modal/modal.service';
 
 @Component({
   selector: 'app-topics',
@@ -14,7 +16,7 @@ export class TopicsComponent implements OnInit{
 
   faEdit = faEdit;
   faEye = faEye;
-  constructor(private topicsService: TopicsService, private router: Router) {}
+  constructor(private topicsService: TopicsService, private router: Router, private modalService: ModalService) {}
 
   ngOnInit(): void {
     this.topics$ = this.topicsService.topics();
@@ -25,7 +27,8 @@ export class TopicsComponent implements OnInit{
   }
 
   editTopic(topic: Topic):void {
-    this.router.navigate(['edit', topic.id], { state: topic});
+    this.modalService.show(EditModalComponent, {modalDialogClass: 'modal-dialog-slideout', data: topic})
+    // this.router.navigate(['edit', topic.id], { state: topic});
   }
 
   viewTopic(topic: Topic):void {

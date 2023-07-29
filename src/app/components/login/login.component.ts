@@ -24,7 +24,10 @@ export class LoginComponent {
       .login(formValues.email, formValues.password)
       .subscribe({next: () => {
         console.log('User is logged in');
-        this.router.navigateByUrl('/');
+        setTimeout(() => {
+          
+          this.router.navigateByUrl('/');
+        }, 0);
       }, 
       error: () => {this.errorMessage$.next('Failed to authentificate')}, 
       complete: () => {}}
