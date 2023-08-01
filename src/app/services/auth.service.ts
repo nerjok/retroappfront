@@ -26,6 +26,10 @@ export class AuthService {
     return this._authToken;
   }
 
+  public set authToken(token : string | undefined) {
+    this._authToken = undefined;
+  }
+  
   constructor(private http: HttpClient) {}
 
   login(userName: string, password: string): Observable<UserLogin> {
@@ -67,7 +71,8 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
-    localStorage.removeItem('expiration');
+    localStorage.removeItem('expires_at');
+    this.authToken = undefined;
   }
 
   public isLoggedIn() {

@@ -21,13 +21,15 @@ export class AuthInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     const idToken = this.authService.authToken;
 
+    
+    const routeExceptions = ['api/users', 'api/users/login']
+    const isRouteExceptional = routeExceptions.some((exception) => req.url.endsWith(exception));
+    
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + idToken,
+      ...(isRouteExceptional ? {} : {Authorization: 'Bearer ' + idToken}),
     });
-
-    const routeExceptions = ['api/users']
-    const isRouteExceptional = routeExceptions.some((exception) => req.url.endsWith(exception));
+    
     if(!idToken && !isRouteExceptional) {
       this.router.navigateByUrl('login');
       return next.handle(req)
