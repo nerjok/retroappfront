@@ -34,12 +34,17 @@ export class AuthInterceptor implements HttpInterceptor {
       this.router.navigateByUrl('login');
       return next.handle(req)
     }
+
     const clonedReq = idToken ?  req.clone({ headers }):req;
       return next.handle(clonedReq).pipe(
         tap({
           next: () => {},
           error: (error) => {
             if (error instanceof HttpErrorResponse && error.status === 401) {
+              if(this.authService.isExpired()) {
+                console.log('[token is expuired login again]', this.authService.getExpiration());
+                this.authService.logout();
+              }
               this.router.navigateByUrl('login');
             }
         },

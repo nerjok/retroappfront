@@ -10,9 +10,9 @@ export interface UserLogin {
 }
 
 export interface AuthCredentials {
-  userName: string,
-  password: string,
-  email: string
+  userName: string;
+  password: string;
+  email: string;
 }
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -26,10 +26,10 @@ export class AuthService {
     return this._authToken;
   }
 
-  public set authToken(token : string | undefined) {
+  public set authToken(token: string | undefined) {
     this._authToken = undefined;
   }
-  
+
   constructor(private http: HttpClient) {}
 
   login(userName: string, password: string): Observable<UserLogin> {
@@ -63,7 +63,9 @@ export class AuthService {
   }
 
   private setSession(authResult: UserLogin) {
-    const expiresAt = moment().add(authResult.expiration, 'second');
+    const expiresAt = moment(authResult.expiration).subtract(1, 'year').format('x');//.add(authResult.expiration, 'second');
+    console.log('[expirationtime ]', expiresAt);
+    
     localStorage.removeItem('token');
     localStorage.setItem('token', authResult.token);
     localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
@@ -84,8 +86,12 @@ export class AuthService {
   }
 
   getExpiration() {
-    const expiration: any = localStorage.getItem('expiration');
-    const expiresAt = JSON.parse(expiration);
-    return moment(expiresAt);
+    const expiration: any = localStorage.getItem('expires_at');
+    const expiresAt = JSON.parse(expiration);    
+    return moment(expiresAt, 'x');
+  }
+
+  isExpired(): boolean {
+    return this.getExpiration().isBefore(moment());
   }
 }
