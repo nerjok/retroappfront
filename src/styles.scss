@@ -3,3 +3,16 @@
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
 @import './styles/index.scss';
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+
+.red-row {
+  td {
+    background: rgb(242, 170, 170);
+  }
+}
+.gray-row {
+  td {
+    background: hsl(39, 85%, 73%);
+  }
+}

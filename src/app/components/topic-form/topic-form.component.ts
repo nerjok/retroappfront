@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Topic, TopicsService } from 'src/app/services/topics.service';
+import { TopicStatus, topicStatus } from 'src/app/shared/models/topic-status.enum';
 
 @Component({
   selector: 'app-topic-form',
@@ -10,11 +11,14 @@ import { Topic, TopicsService } from 'src/app/services/topics.service';
   styleUrls: ['./topic-form.component.scss'],
 })
 export class TopicFormComponent implements OnInit {
+
+  topicStatuses = topicStatus;
   topicsFormGroup!: FormGroup<{
     name: FormControl<string | null>;
     comment: FormControl<string | null>;
     id: FormControl<string | null>;
     dueDate: FormControl<NgbDateStruct | null>;
+    status: FormControl<TopicStatus | null>
   }>;
   @Input() topic?: Topic | undefined;
 
@@ -42,6 +46,9 @@ export class TopicFormComponent implements OnInit {
       dueDate: new FormControl<NgbDateStruct | null>(dueDate, [
         Validators.required,
       ]),
+      status: new FormControl<TopicStatus | null>(this.topic?.status ?? TopicStatus.New, [
+        Validators.required,
+      ]),
     });
   }
 
@@ -61,7 +68,7 @@ export class TopicFormComponent implements OnInit {
 
     const topic: Topic = {
       ...this.topicsFormGroup.value,
-      dueDate: dueDateString.toISOString(),
+      dueDate: dueDateString.toISOString()
     } as Topic;
     console.log(this.topicsFormGroup.value, topic);
     // return;

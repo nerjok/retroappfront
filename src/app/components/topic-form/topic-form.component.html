@@ -43,5 +43,15 @@
       </div>
     </app-simple-form-group>
   </div>
+  <div class="col-12">
+    <app-simple-form-group>
+      <ng-select
+        [items]="topicStatuses"
+        bindLabel="title"
+        bindValue="value"
+        formControlName="status"
+      ></ng-select>
+    </app-simple-form-group>
+  </div>
 </div>
 <button class="btn btn-primary btn-sm" (click)="saveTopic()">Save</button>

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { faEdit, faEye } from '@fortawesome/free-solid-svg-icons';
 import { Observable } from 'rxjs';
 import { Pager, Topic, TopicsService } from 'src/app/services/topics.service';
 import { EditModalComponent } from '../edit-modal/edit-modal.component';
 import { ModalService } from 'src/app/shared/components/modal/modal.service';
+import { topicStatus } from 'src/app/shared/models/topic-status.enum';
 
 @Component({
   selector: 'app-topics',
@@ -16,10 +17,12 @@ export class TopicsComponent implements OnInit{
 
   faEdit = faEdit;
   faEye = faEye;
-  constructor(private topicsService: TopicsService, private router: Router, private modalService: ModalService) {}
+  constructor(private activatedRoute: ActivatedRoute, private topicsService: TopicsService, private router: Router, private modalService: ModalService) {}
 
   ngOnInit(): void {
     this.topics$ = this.topicsService.topics();
+    console.log('[statusEntries ]', topicStatus);
+    
   }
 
   addTopic(): void {
@@ -32,6 +35,6 @@ export class TopicsComponent implements OnInit{
   }
 
   viewTopic(topic: Topic):void {
-    this.router.navigate(['view', topic.id], { state: topic});
+    this.router.navigate(['view', topic.id], { relativeTo: this.activatedRoute});
   }
 }

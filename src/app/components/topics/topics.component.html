@@ -1,3 +1,5 @@
+<router-outlet></router-outlet>
+
 <table class="table">
   <thead>
     <tr>
@@ -11,12 +13,12 @@
   </thead>
   <tbody>
     <ng-container *ngIf="topics$ | async as topics">
-      <tr *ngFor="let topic of topics.data">
-        <th scope="row">#</th>
+      <tr *ngFor="let topic of topics.data" [appDueDateColor]="topic.dueDate" [status]="topic.status">
+        <td scope="row">#</td>
         <td>{{ topic.name }}</td>
         <td>{{ topic.comment }}</td>
         <td>{{ topic.dueDate | date }}</td>
-        <td>in-progress</td>
+        <td>{{ topic.status | topicStatus }}</td>
         <td>
           <div class="d-flex">
             <button

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { Observable, shareReplay } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { TopicStatus } from '../shared/models/topic-status.enum';
 
 export interface Pager<T> {
   data: T[];
@@ -13,16 +14,18 @@ export interface Topic {
   id?: string;
   name: string;
   comment: string;
-  status?: number;
-  comments: TopicComment[]
-  dueDate: string;//iso string of date
+  comments: TopicComment[];
+  dueDate: string; //iso string of date
+  status: TopicStatus;
 }
 export interface TopicComment {
-  id?:string;
+  id?: string;
   topicId: string;
   name: string;
   text: string;
+  updatedDate: string;
 }
+
 const baseUrl = environment.apiUrl;
 
 @Injectable({ providedIn: 'root' })

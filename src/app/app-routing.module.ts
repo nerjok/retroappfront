@@ -51,19 +51,21 @@ export const routes: Routes = [
           topic: topicResolveFn,
         },
       },
-      {
-        path: 'view/:id',
-        component: TopicViewComponent,
-        resolve: {
-          topic: topicResolveFn,
-        },
-      },
       { path: 'edit-comment', component: EditCommentComponent },
       {
         path: 'topics',
         component: TopicsComponent,
-        pathMatch: 'full',
-        children: [{ path: 'create', component: TopicFormComponent }],
+        // pathMatch: 'full',
+        children: [
+          { path: 'create', component: TopicFormComponent },
+          {
+            path: 'view/:id',
+            component: TopicViewComponent,
+            resolve: {
+              topic: topicResolveFn,
+            },
+          },
+        ],
       },
     ],
   },

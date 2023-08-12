@@ -23,6 +23,9 @@ import { MainInfoComponent } from './components/main-info/main-info.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { EditModalComponent } from './components/edit-modal/edit-modal.component';
 import { ModalModule } from './shared/components/modal/modal.module';
+import { TopicStatusPipe } from './shared/pipes/topic-status.pipe';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { DueDateColorDirective } from './shared/directives/due-date-color.directive';
 
 @NgModule({
   declarations: [
@@ -39,6 +42,8 @@ import { ModalModule } from './shared/components/modal/modal.module';
     MainInfoComponent,
     MainPageComponent,
     EditModalComponent,
+    TopicStatusPipe,
+    DueDateColorDirective,
   ],
   imports: [
     BrowserModule,
@@ -50,7 +55,8 @@ import { ModalModule } from './shared/components/modal/modal.module';
     NgbModule,
     SimpleFormGroupComponent,
     FontAwesomeModule,
-    ModalModule
+    ModalModule,
+    NgSelectModule
   ],
   providers: [
     provideHttpClient(),
