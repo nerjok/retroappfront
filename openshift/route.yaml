@@ -1,0 +1,17 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: retroapp
+  labels:
+    app: retroapp
+    app.kubernetes.io/component: retroapp
+    app.kubernetes.io/instance: retroapp
+
+spec:
+  to:
+    kind: Service
+    name: retroapp
+    weight: 100
+  port:
+    targetPort: 8080-tcp
+  wildcardPolicy: None

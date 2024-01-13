@@ -1,0 +1,61 @@
+kind: DeploymentConfig
+apiVersion: apps.openshift.io/v1
+metadata:
+  name: retroapp
+  labels:
+    app: retroapp
+    app.kubernetes.io/component: retroapp
+    app.kubernetes.io/instance: retroapp
+spec:
+  strategy:
+    type: Rolling
+    rollingParams:
+      updatePeriodSeconds: 1
+      intervalSeconds: 1
+      timeoutSeconds: 600
+      maxUnavailable: 25%
+      maxSurge: 25%
+    activeDeadlineSeconds: 21600
+  triggers:
+    - type: ConfigChange
+    - type: ImageChange
+      imageChangeParams:
+        automatic: true
+        containerNames:
+          - retroapp
+        from:
+          kind: ImageStreamTag
+          namespace: nerjok-dev
+          name: 'retroapp:latest'
+        lastTriggeredImage: >-
+          image-registry.openshift-image-registry.svc:5000/nerjok-dev/retroapp@sha256:e3834fc3e191567dd916bca91b8e0d48f2c0e5c25ac3971e342a4e5066d24a64
+  replicas: 1
+  revisionHistoryLimit: 10
+  test: false
+  selector:
+    deploymentconfig: retroapp
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        deploymentconfig: retroapp
+      annotations:
+        openshift.io/generated-by: OpenShiftNewApp
+    spec:
+      containers:
+        - name: retroapp
+          image: >-
+            image-registry.openshift-image-registry.svc:5000/nerjok-dev/retroapp@sha256:e3834fc3e191567dd916bca91b8e0d48f2c0e5c25ac3971e342a4e5066d24a64
+          ports:
+            - containerPort: 80
+              protocol: TCP
+            - containerPort: 8080
+              protocol: TCP
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler

@@ -1,0 +1,22 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: retroapp
+  labels:
+    app: retroapp
+    app.kubernetes.io/component: retroapp
+    app.kubernetes.io/instance: retroapp
+  annotations:
+    openshift.io/generated-by: OpenShiftNewApp
+spec:
+  ports:
+    - name: 80-tcp
+      protocol: TCP
+      port: 80
+      targetPort: 80
+    - name: 8080-tcp
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+  selector:
+    deploymentconfig: retroapp
