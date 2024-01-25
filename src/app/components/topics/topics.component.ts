@@ -20,9 +20,7 @@ export class TopicsComponent implements OnInit{
   constructor(private activatedRoute: ActivatedRoute, private topicsService: TopicsService, private router: Router, private modalService: ModalService) {}
 
   ngOnInit(): void {
-    this.topics$ = this.topicsService.topics();
-    console.log('[statusEntries ]', topicStatus);
-    
+    this.topics$ = this.topicsService.topics();    
   }
 
   addTopic(): void {

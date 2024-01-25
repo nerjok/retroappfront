@@ -33,8 +33,6 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(userName: string, password: string): Observable<UserLogin> {
-    console.log('[service]');
-
     return this.http
       .post<UserLogin>(`${this.baseUrl}api/users/login`, { userName, password })
       .pipe(
@@ -63,9 +61,7 @@ export class AuthService {
   }
 
   private setSession(authResult: UserLogin) {
-    const expiresAt = moment(authResult.expiration).subtract(1, 'year').format('x');//.add(authResult.expiration, 'second');
-    console.log('[expirationtime ]', expiresAt);
-    
+    const expiresAt = moment(authResult.expiration).subtract(1, 'year').format('x');//.add(authResult.expiration, 'second');    
     localStorage.removeItem('token');
     localStorage.setItem('token', authResult.token);
     localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
@@ -93,5 +89,14 @@ export class AuthService {
 
   isExpired(): boolean {
     return this.getExpiration().isBefore(moment());
+  }
+
+  handshake(authToken: string) {
+    return this.http.get('https://localhost:7220/ws', {headers: {Authorization: authToken}});
+  }
+
+  public sendMessage(authToken: string) {
+    return this.http.get('https://localhost:7220/api/WebSockets/sentMessage?message=gfdsgfdgsdfgmessage', {headers: {Authorization: authToken}});
+
   }
 }

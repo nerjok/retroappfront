@@ -32,7 +32,6 @@ export class SimpleFormGroupComponent implements AfterViewInit {
     return this.getFormValidationErrors();
   }
   ngAfterViewInit(): void {
-    console.log('[[ viewInit ]]', this.formControl);
   }
 
   getFormValidationErrors(): string[] {
@@ -48,7 +47,6 @@ export class SimpleFormGroupComponent implements AfterViewInit {
       return [];
     }
 
-    console.log(errors, Object.keys(errors));
     if (!errors || !Object.keys(errors).length) {
       return [];
     }

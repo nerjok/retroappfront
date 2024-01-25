@@ -47,12 +47,21 @@
 <div class="content" role="main">
   <!-- <div class="card-container">kuku</div> -->
 
-<div class="container">
-
-
-  <router-outlet></router-outlet>
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
 </div>
-</div>
+
+<ng-container *ngIf="isDevMode">
+  <button (click)="sendMessage()">SendMsg</button>
+  <button (click)="showToast()">showToast</button>
+  <h2>Data loaded from the Web API:</h2>
+  <div *ngIf="offers.length > 0" class="alert alert-warning" role="alert">
+    <li *ngFor="let item of offers">Offers: {{ item }}</li>
+  </div>
+</ng-container>
+<p-toast></p-toast>
+
 
 <!-- 
  pagination in frontend
@@ -65,5 +74,6 @@
  sockets
  docker file
 
+ refresh table after topic edit
  due dates by colours
  -->

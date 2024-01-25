@@ -53,7 +53,6 @@ export class CreateCommentComponent {
         topicId,
       })
       .subscribe((data) => {
-        console.log('[ commentSaved ]', data);
         this.commentsFormGroup.reset();
         if (this.comment) {
           this.router.navigate(['..'], { relativeTo: this.route });

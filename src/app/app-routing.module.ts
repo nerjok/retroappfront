@@ -25,7 +25,6 @@ const canActivate: CanActivateFn = (
 ) => {
   const isloggedIn = inject(AuthService).authToken;
   if (!isloggedIn) inject(Router).navigateByUrl('login');
-  console.log('[isLoggedIn]', isloggedIn);
 
   return !!isloggedIn;
 };

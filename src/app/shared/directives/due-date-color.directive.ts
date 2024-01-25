@@ -28,14 +28,12 @@ export class DueDateColorDirective implements OnChanges {
   }
 
   private highlight(date: string) {
-    console.log('setColour', date, this.status);
     if(this.status === TopicStatus.Finnished) {
       return;
     }
     const currentDate = dayjs();
     const receivedDate = dayjs(date);
     const datesDiff = receivedDate.diff(currentDate, 'days');
-    console.log('[datesDiff]', datesDiff);
 
     const color = receivedDate.isAfter(currentDate)
       ? ''

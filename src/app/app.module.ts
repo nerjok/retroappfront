@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { AppRoutingModule, routes } from './app-routing.module';
@@ -26,6 +27,7 @@ import { ModalModule } from './shared/components/modal/modal.module';
 import { TopicStatusPipe } from './shared/pipes/topic-status.pipe';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { DueDateColorDirective } from './shared/directives/due-date-color.directive';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,9 @@ import { DueDateColorDirective } from './shared/directives/due-date-color.direct
     SimpleFormGroupComponent,
     FontAwesomeModule,
     ModalModule,
-    NgSelectModule
+    NgSelectModule,
+    ToastModule,
+    BrowserAnimationsModule
   ],
   providers: [
     provideHttpClient(),

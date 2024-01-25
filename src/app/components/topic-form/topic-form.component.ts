@@ -70,10 +70,8 @@ export class TopicFormComponent implements OnInit {
       ...this.topicsFormGroup.value,
       dueDate: dueDateString.toISOString()
     } as Topic;
-    console.log(this.topicsFormGroup.value, topic);
     // return;
     this.topicsService.createTopic(topic).subscribe((response) => {
-      console.log(response);
       if (this.topic) {
         this.topicUpdated.emit(response);
       } else {

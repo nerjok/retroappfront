@@ -42,7 +42,6 @@ export class AuthInterceptor implements HttpInterceptor {
           error: (error) => {
             if (error instanceof HttpErrorResponse && error.status === 401) {
               if(this.authService.isExpired()) {
-                console.log('[token is expuired login again]', this.authService.getExpiration());
                 this.authService.logout();
               }
               this.router.navigateByUrl('login');

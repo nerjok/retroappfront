@@ -23,7 +23,6 @@ export class LoginComponent {
     this.authService
       .login(formValues.email, formValues.password)
       .subscribe({next: () => {
-        console.log('User is logged in');
         setTimeout(() => {
           
           this.router.navigateByUrl('/');

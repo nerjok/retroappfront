@@ -20,7 +20,6 @@ export class TopicViewComponent {
     return this.topic?.comments;
   }
   constructor(private topicsService: TopicsService, private router: Router) {
-    console.log(router.getCurrentNavigation()?.extras);
     // if (router.getCurrentNavigation()?.extras) {
     //   this.topic = router.getCurrentNavigation()?.extras.state as Topic;
     // }
