@@ -1,5 +1,5 @@
 <router-outlet></router-outlet>
-
+<button (click)="addTopic()" type="button" class="btn btn-primary btn-sm">CreateTopic</button>
 <table class="table">
   <thead>
     <tr>
@@ -24,18 +24,18 @@
             <button
               (click)="editTopic(topic)"
               type="button"
-              class="btn btn-secondary btn-sm me-1"
+              class="btn btn-primary btn-sm me-1"
             >
               <fa-icon [icon]="faEdit"></fa-icon>
             </button>
 
-            <button
+            <!-- <button
               type="button"
               class="btn btn-primary btn-sm"
               (click)="viewTopic(topic)"
             >
               <fa-icon [icon]="faEye"></fa-icon>
-            </button>
+            </button> -->
           </div>
         </td>
       </tr>

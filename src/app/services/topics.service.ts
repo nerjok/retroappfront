@@ -36,8 +36,8 @@ export class TopicsService {
     return this.http.get<Topic>(`${baseUrl}api/topics/${topicId}`);
   }
 
-  topics(): Observable<Pager<Topic>> {
-    return this.http.get<Pager<Topic>>(`${baseUrl}api/topics`);
+  topics(page = 0): Observable<Pager<Topic>> {
+    return this.http.get<Pager<Topic>>(`${baseUrl}api/topics?page=${page}`);
   }
 
   createTopic(topic: Topic) {

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
-import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { AppRoutingModule, routes } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CommonModule } from '@angular/common';
@@ -17,7 +17,6 @@ import { CreateCommentComponent } from './components/comments/create-comment/cre
 import { EditCommentComponent } from './components/comments/edit-comment/edit-comment.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { EditTopicComponent } from './components/edit-topic/edit-topic.component';
-import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { RegisterComponent } from './components/register/register.component';
 import { AuthFormComponent } from './components/auth-form/auth-form.component';
 import { MainInfoComponent } from './components/main-info/main-info.component';
@@ -28,26 +27,31 @@ import { TopicStatusPipe } from './shared/pipes/topic-status.pipe';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { DueDateColorDirective } from './shared/directives/due-date-color.directive';
 import { ToastModule } from 'primeng/toast';
+import { responseInterceptor } from './interceptors/requests.interceptor';
+import { MessageService } from 'primeng/api';
+import { CommentComponent } from './components/comments/comment/comment.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     TopicsComponent,
-    TopicFormComponent,
     TopicViewComponent,
-    CreateCommentComponent,
+    // CreateCommentComponent,
     EditCommentComponent,
     EditTopicComponent,
     RegisterComponent,
     AuthFormComponent,
     MainInfoComponent,
-    MainPageComponent,
     EditModalComponent,
     TopicStatusPipe,
     DueDateColorDirective,
   ],
   imports: [
+    MainPageComponent,
+    TopicFormComponent,
+    CreateCommentComponent,
+    CommentComponent,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -63,8 +67,8 @@ import { ToastModule } from 'primeng/toast';
     BrowserAnimationsModule
   ],
   providers: [
-    provideHttpClient(),
-    // provideRouter(routes, withComponentInputBinding()),
+    MessageService,
+    provideHttpClient(withInterceptors([responseInterceptor])),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]

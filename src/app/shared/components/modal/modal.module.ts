@@ -4,10 +4,10 @@ import { CustomModalService } from './custom-modal.service';
 import { CustomModalBaseComponent } from './custom-modal-base/custom-modal-base.component';
 import { ModalBaseComponent } from './modal-base/modal-base.component';
 
-const COMPONENTS = [ModalBaseComponent, CustomModalBaseComponent];
+const COMPONENTS = [CustomModalBaseComponent];
 @NgModule({
-  imports: [CommonModule],
-  exports: [COMPONENTS],
+  imports: [CommonModule, ModalBaseComponent],
+  exports: [COMPONENTS, ModalBaseComponent],
   declarations: [COMPONENTS],
   providers: [CustomModalService],
 })

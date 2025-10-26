@@ -9,7 +9,7 @@
       (click)="close()"
     ></button>
   </div>
-  <div class="body" id="modal-body">
+  <div class="body modal-body" id="modal-body">
     <ng-content></ng-content>
   </div>
 
@@ -19,8 +19,8 @@
 <!-- </section> -->
 
 <ng-template #defaultFooterTemplate>
-  <button id="dismiss-button" type="button" class="btn-close" aria-label="Close" (click)="dismiss()">Cancel</button>
-  <button id="ok-button" type="button" class="btn btn-outline-dark" (click)="close('ok')">Ok</button>
+  <!-- <button id="dismiss-button" type="button" class="btn-close" aria-label="Close" (click)="dismiss()">Cancel</button> -->
+  <!-- <button id="ok-button" type="button" class="btn btn-outline-dark" (click)="close('ok')">Ok</button> -->
 </ng-template>
 
 <ng-template #defaultHeaderTemplate>

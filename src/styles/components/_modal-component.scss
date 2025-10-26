@@ -1,4 +1,23 @@
 .modal-dialog {
+  max-width: 80%;
+  // height: 100%;
+/*
+  .modal-content {
+    height: 90%;
+    #modal-body {
+      flex: 1;
+    }
+  }
+  */
+}
+/*
+@media only screen and (max-width: 600px) {
+  .modal-dialog {
+    max-width: 100%;
+  }
+}
+
+/*.modal-dialog {
   max-width: 60%;
 }
 .modal-dialog-slideout {
@@ -44,3 +63,4 @@
     // padding: var(--bs-modal-padding);
   }
 }
+/**/

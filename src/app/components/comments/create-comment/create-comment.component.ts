@@ -1,5 +1,6 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommentService } from 'src/app/services/comments.service';
 import { TopicComment } from 'src/app/services/topics.service';
@@ -8,6 +9,8 @@ import { TopicComment } from 'src/app/services/topics.service';
   selector: 'app-create-comment',
   templateUrl: './create-comment.component.html',
   styleUrls: ['./create-comment.component.scss'],
+  standalone: true,
+  imports: [ReactiveFormsModule, CommonModule],
 })
 export class CreateCommentComponent {
   @Input() topicId!: string;
@@ -28,6 +31,8 @@ export class CreateCommentComponent {
   ) {}
 
   ngOnInit(): void {
+    console.log('[[ editComent ]]', this.comment);
+    
     this.commentsFormGroup = new FormGroup({
       name: new FormControl<string>(this.comment?.name ?? '', [
         Validators.required,
@@ -55,14 +60,15 @@ export class CreateCommentComponent {
       .subscribe((data) => {
         this.commentsFormGroup.reset();
         if (this.comment) {
-          this.router.navigate(['..'], { relativeTo: this.route });
+          // this.router.navigate(['..'], { relativeTo: this.route });
           this.commentAdded.emit(this.comment);
         } else {
-          const currentUrl = this.router.url;
-          // this.router.navigate([currentUrl]);
-            this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-              this.router.navigate([currentUrl]);
-          });
+          this.commentAdded.emit(this.comment);
+          // const currentUrl = this.router.url;
+          // // this.router.navigate([currentUrl]);
+          //   this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+          //     this.router.navigate([currentUrl]);
+          // });
         }
       });
   }

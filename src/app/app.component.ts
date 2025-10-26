@@ -13,7 +13,7 @@ import { environment } from 'src/environments/environment';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [MessageService],
+  // providers: [MessageService],
 })
 export class AppComponent implements OnInit {
   isDevMode = isDevMode();
@@ -40,6 +40,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    /*
     this.hubConnectionBuilder = new HubConnectionBuilder()
       .withUrl(`${environment.apiUrl}offers`, {
         accessTokenFactory: () => this.authService.authToken!,
@@ -104,6 +105,7 @@ export class AppComponent implements OnInit {
     setTimeout(() => {
       ws.close();
     }, 100000);
+    */
   }
 
   public logout(): void {

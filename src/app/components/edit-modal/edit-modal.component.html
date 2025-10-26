@@ -1,19 +1,58 @@
 <lib-modal-base>
-  <ng-template #modalHeader>
-    <h5 class="modal-title">Edit topic</h5>
-  </ng-template>
-  <div class="modal-body">
-    <!-- <p>Modal body text goes here.</p> -->
-    <!-- {{ modalData | json}} -->
-    <app-topic-form 
-    [topic]="topic"
-    (topicUpdated)="onUpdate()"
-    ></app-topic-form>
-  </div>
-  <ng-template #modalHeader>
-    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-      Close
-    </button>
-    <button type="button" class="btn btn-primary">Save changes</button>
-  </ng-template>
+	<ng-template #modalHeader>
+		<h5 class="modal-title">Preview topic</h5>
+	</ng-template>
+	<div class="modal-bodyX">
+		<!-- <p>Modal body text goes here.</p> -->
+		<!-- {{ modalData | json}} -->
+
+		<!-- @let topicVar = topic(); -->
+		@if(topic()){
+
+
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12 col-md-4">
+					<app-topic-form [topic]="topic()" (topicUpdated)="onUpdate()" />
+				</div>
+				<div class="col-sm-12 col-md-8">
+					<div class="d-flex justify-content-end pb-3">
+						<button class="btn btn-secondary btn-sm" (click)="onAddComment()">Add Comment</button>
+					</div>
+					@if(addComentVisible() != true) {
+
+					@if(topic() && topic().id){
+					<div class="mt-1">
+						<app-create-comment [topicId]="topic().id!" (commentAdded)="onCommentAdded()" />
+					</div>
+					}
+					}
+
+
+					@if(topic().comments && topic().comments.length > 0) {
+					@for(comment of topic().comments; track comment.id){
+
+					<app-comment [comment]="comment" [topic]="topic()" (commentAdded)="onCommentAdded()" />
+					}
+
+					}
+					@else {
+					<h3>No comment added yet</h3>
+					}
+					<hr>
+
+
+				</div>
+			</div>
+		</div>
+		}
+
+
+	</div>
+	<ng-template #modalHeader>
+		<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+			Close
+		</button>
+		<button type="button" class="btn btn-primary">Save changes</button>
+	</ng-template>
 </lib-modal-base>

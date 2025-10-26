@@ -1,0 +1,25 @@
+@if(comment()){
+<div class="card mb-3">
+    <!-- <div > -->
+    <div class="card-body">
+        @if(editComment()){
+            <app-create-comment [topicId]="topic()!.id!" [commentId]="comment()!.id!" [comment]="comment()" (commentAdded)="onCommentAdded()" />
+        } @else {
+
+            <div class="d-flex justify-content-between">
+                <h5 class="card-title">{{ comment()!.name }}</h5>
+                <span>
+                    <b class="me-2">
+                        {{ comment()!.updatedDate | date }}
+                    </b>
+                    <button (click)="onEditComment()" type="button" class="btn btn-primary btn-sm">
+                        <fa-icon [icon]="faEdit"></fa-icon>
+                    </button>
+                </span>
+            </div>
+            <p class="card-text">{{ comment()!.text }}</p>
+        }
+    </div>
+    <!-- </div> -->
+</div>
+}

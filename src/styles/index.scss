@@ -1,1 +1,16 @@
 @import './components/modal-component';
+
+// Disabled ng-select
+ .ng-select.ng-select-disabled>.ng-select-container {
+    background-color: var(--bs-secondary-bg);;
+ }
+ .input-group{
+    input[disabled] + button, .btn:disabled {
+        background-color: var(--bs-secondary-bg);
+        opacity: unset;
+    }
+ }
+
+ .ng-invalid .ng-touched {
+      border-color: red
+ }

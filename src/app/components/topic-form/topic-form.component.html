@@ -34,6 +34,7 @@
         />
         <button
           class="btn btn-outline-secondary bi bi-calendar3"
+          [disabled]="topicsFormGroup.disabled"
           (click)="d.toggle()"
           type="button"
         >
@@ -53,4 +54,8 @@
     </app-simple-form-group>
   </div>
 </div>
+
+@if(topic) {
+  <button class="btn btn-secondary btn-sm me-1"  (click)="editForm()">Edit</button>
+}
 <button class="btn btn-primary btn-sm" (click)="saveTopic()">Save</button>

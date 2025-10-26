@@ -1,14 +1,19 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDate, NgbDateStruct, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { Topic, TopicsService } from 'src/app/services/topics.service';
+import { SimpleFormGroupComponent } from 'src/app/shared/components/simple-form-group/simple-form-group.component';
 import { TopicStatus, topicStatus } from 'src/app/shared/models/topic-status.enum';
 
 @Component({
   selector: 'app-topic-form',
   templateUrl: './topic-form.component.html',
   styleUrls: ['./topic-form.component.scss'],
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, SimpleFormGroupComponent, NgbModule, NgSelectModule],
 })
 export class TopicFormComponent implements OnInit {
 
@@ -50,10 +55,23 @@ export class TopicFormComponent implements OnInit {
         Validators.required,
       ]),
     });
+
+    if(this.topic){
+      this.topicsFormGroup.disable();
+    }
+  }
+
+  editForm(){
+    if(this.topicsFormGroup.enabled){
+      this.topicsFormGroup.disable();
+      return;
+    }
+
+    this.topicsFormGroup.enable();
   }
 
   saveTopic() {
-    if (this.topicsFormGroup.invalid) {
+    if (this.topicsFormGroup.invalid || this.topicsFormGroup.disabled) {
       this.topicsFormGroup.markAllAsTouched();
       return;
     }
@@ -73,10 +91,11 @@ export class TopicFormComponent implements OnInit {
     // return;
     this.topicsService.createTopic(topic).subscribe((response) => {
       if (this.topic) {
-        this.topicUpdated.emit(response);
+        this.topicsFormGroup.disable();
       } else {
-        this.router.navigateByUrl('/');
+        // this.router.navigateByUrl('/');
       }
+      this.topicUpdated.emit(response);
     });
   }
 }

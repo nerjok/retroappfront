@@ -1,10 +1,13 @@
 import { ChangeDetectionStrategy, Component, ContentChild, Input, TemplateRef } from '@angular/core';
 import { ModalBase } from '../modal-base';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'lib-modal-base',
   templateUrl: './modal-base.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [CommonModule],
   styleUrls: ['./modal-base.component.scss']
 })
 export class ModalBaseComponent extends ModalBase {
