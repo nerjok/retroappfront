@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
-import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient, withInterceptors } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, withInterceptors, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { AppRoutingModule, routes } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CommonModule } from '@angular/common';
@@ -31,46 +31,40 @@ import { responseInterceptor } from './interceptors/requests.interceptor';
 import { MessageService } from 'primeng/api';
 import { CommentComponent } from './components/comments/comment/comment.component';
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    TopicsComponent,
-    TopicViewComponent,
-    // CreateCommentComponent,
-    EditCommentComponent,
-    EditTopicComponent,
-    RegisterComponent,
-    AuthFormComponent,
-    MainInfoComponent,
-    EditModalComponent,
-    TopicStatusPipe,
-    DueDateColorDirective,
-  ],
-  imports: [
-    MainPageComponent,
-    TopicFormComponent,
-    CreateCommentComponent,
-    CommentComponent,
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    CommonModule,
-    ReactiveFormsModule,
-    FormsModule,
-    NgbModule,
-    SimpleFormGroupComponent,
-    FontAwesomeModule,
-    ModalModule,
-    NgSelectModule,
-    ToastModule,
-    BrowserAnimationsModule
-  ],
-  providers: [
-    MessageService,
-    provideHttpClient(withInterceptors([responseInterceptor])),
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-  ],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        LoginComponent,
+        TopicsComponent,
+        TopicViewComponent,
+        // CreateCommentComponent,
+        EditCommentComponent,
+        EditTopicComponent,
+        RegisterComponent,
+        AuthFormComponent,
+        MainInfoComponent,
+        EditModalComponent,
+        TopicStatusPipe,
+        DueDateColorDirective,
+    ],
+    bootstrap: [AppComponent], imports: [MainPageComponent,
+        TopicFormComponent,
+        CreateCommentComponent,
+        CommentComponent,
+        BrowserModule,
+        AppRoutingModule,
+        CommonModule,
+        ReactiveFormsModule,
+        FormsModule,
+        NgbModule,
+        SimpleFormGroupComponent,
+        FontAwesomeModule,
+        ModalModule,
+        NgSelectModule,
+        ToastModule,
+        BrowserAnimationsModule], providers: [
+        MessageService,
+        provideHttpClient(withInterceptors([responseInterceptor])),
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+        provideHttpClient(withInterceptorsFromDi()),
+    ] })
 export class AppModule { }

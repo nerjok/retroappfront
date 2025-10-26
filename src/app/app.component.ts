@@ -1,11 +1,6 @@
 import { Component, OnInit, isDevMode } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { Router } from '@angular/router';
-import {
-  HubConnection,
-  HubConnectionBuilder,
-  LogLevel,
-} from '@microsoft/signalr';
 import { MessageService } from 'primeng/api';
 import { environment } from 'src/environments/environment';
 
@@ -18,7 +13,7 @@ import { environment } from 'src/environments/environment';
 export class AppComponent implements OnInit {
   isDevMode = isDevMode();
   title = 'SignalRClient';
-  private hubConnectionBuilder!: HubConnection;
+  // private hubConnectionBuilder!: HubConnection;
   offers: any[] = [];
 
   get isLoggedIn(): boolean {
