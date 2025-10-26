@@ -4,9 +4,10 @@ import { Subject } from 'rxjs';
 import { AuthCredentials, AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
+    selector: 'app-register',
+    templateUrl: './register.component.html',
+    styleUrls: ['./register.component.scss'],
+    standalone: false
 })
 export class RegisterComponent {
   errorMessage$ = new Subject<string | null>();

@@ -5,10 +5,10 @@ import { MessageService } from 'primeng/api';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  // providers: [MessageService],
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    standalone: false
 })
 export class AppComponent implements OnInit {
   isDevMode = isDevMode();

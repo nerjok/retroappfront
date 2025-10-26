@@ -9,9 +9,10 @@ import { topicStatus } from 'src/app/shared/models/topic-status.enum';
 import { CreateTopicModalComponent } from 'src/app/create-topic-modal/create-topic-modal.component';
 
 @Component({
-  selector: 'app-topics',
-  templateUrl: './topics.component.html',
-  styleUrls: ['./topics.component.scss']
+    selector: 'app-topics',
+    templateUrl: './topics.component.html',
+    styleUrls: ['./topics.component.scss'],
+    standalone: false
 })
 export class TopicsComponent implements OnInit {
   topics$?: Observable<Pager<Topic>>

@@ -4,9 +4,10 @@ import { Topic, TopicsService } from 'src/app/services/topics.service';
 import { MODAL_DATA } from 'src/app/shared/components/modal/modal.model';
 
 @Component({
-  selector: 'app-edit-modal',
-  templateUrl: './edit-modal.component.html',
-  styleUrls: ['./edit-modal.component.scss']
+    selector: 'app-edit-modal',
+    templateUrl: './edit-modal.component.html',
+    styleUrls: ['./edit-modal.component.scss'],
+    standalone: false
 })
 export class EditModalComponent implements OnInit {
 

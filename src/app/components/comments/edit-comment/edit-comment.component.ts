@@ -3,9 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TopicComment } from 'src/app/services/topics.service';
 
 @Component({
-  selector: 'app-edit-comment',
-  templateUrl: './edit-comment.component.html',
-  styleUrls: ['./edit-comment.component.scss'],
+    selector: 'app-edit-comment',
+    templateUrl: './edit-comment.component.html',
+    styleUrls: ['./edit-comment.component.scss'],
+    standalone: false
 })
 export class EditCommentComponent {
   commentId: string | null = this.route.snapshot.paramMap.get('id');

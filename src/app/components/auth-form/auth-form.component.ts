@@ -16,9 +16,10 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-auth-form',
-  templateUrl: './auth-form.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-auth-form',
+    templateUrl: './auth-form.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class AuthFormComponent implements OnInit {
   @Input() register = false;

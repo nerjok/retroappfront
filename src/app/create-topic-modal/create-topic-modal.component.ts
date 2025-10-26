@@ -6,11 +6,11 @@ import { TopicFormComponent } from '../components/topic-form/topic-form.componen
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-create-topic-modal',
-  standalone: true,
-  imports: [CommonModule, ModalBaseComponent, TopicFormComponent],
-  templateUrl: './create-topic-modal.component.html',
-  styleUrl: './create-topic-modal.component.scss'
+    selector: 'app-create-topic-modal',
+    imports: [CommonModule, ModalBaseComponent, TopicFormComponent],
+    templateUrl: './create-topic-modal.component.html',
+    styleUrl: './create-topic-modal.component.scss',
+    standalone: true
 })
 export class CreateTopicModalComponent {
   topic = signal<Topic | null>(null);

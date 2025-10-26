@@ -9,11 +9,11 @@ import { SimpleFormGroupComponent } from 'src/app/shared/components/simple-form-
 import { TopicStatus, topicStatus } from 'src/app/shared/models/topic-status.enum';
 
 @Component({
-  selector: 'app-topic-form',
-  templateUrl: './topic-form.component.html',
-  styleUrls: ['./topic-form.component.scss'],
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, SimpleFormGroupComponent, NgbModule, NgSelectModule],
+    selector: 'app-topic-form',
+    templateUrl: './topic-form.component.html',
+    styleUrls: ['./topic-form.component.scss'],
+    imports: [CommonModule, ReactiveFormsModule, SimpleFormGroupComponent, NgbModule, NgSelectModule],
+    standalone: true,
 })
 export class TopicFormComponent implements OnInit {
 

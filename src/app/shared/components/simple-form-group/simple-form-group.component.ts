@@ -15,11 +15,11 @@ import {
 } from '@angular/forms';
 
 @Component({
-  selector: 'app-simple-form-group',
-  templateUrl: './simple-form-group.component.html',
-  styleUrls: ['./simple-form-group.component.scss'],
-  standalone: true,
-  imports: [CommonModule],
+    selector: 'app-simple-form-group',
+    templateUrl: './simple-form-group.component.html',
+    styleUrls: ['./simple-form-group.component.scss'],
+    imports: [CommonModule],
+    standalone: true
 })
 export class SimpleFormGroupComponent implements AfterViewInit {
   @Input() label?: string;

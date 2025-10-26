@@ -2,9 +2,10 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, In
 import { CustomModalService } from '../custom-modal.service';
 import { ModalType } from '../modal.model';
 @Component({
-  selector: 'lib-green-modal-base',
-  templateUrl: './custom-modal-base.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'lib-green-modal-base',
+    templateUrl: './custom-modal-base.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class CustomModalBaseComponent {
   @Input() modalType: ModalType = 'default';

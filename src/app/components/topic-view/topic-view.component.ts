@@ -8,9 +8,10 @@ import {
 } from 'src/app/services/topics.service';
 
 @Component({
-  selector: 'app-topic-view',
-  templateUrl: './topic-view.component.html',
-  styleUrls: ['./topic-view.component.scss'],
+    selector: 'app-topic-view',
+    templateUrl: './topic-view.component.html',
+    styleUrls: ['./topic-view.component.scss'],
+    standalone: false
 })
 export class TopicViewComponent {
   // readonly topic?: Topic | undefined;

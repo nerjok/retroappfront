@@ -6,11 +6,11 @@ import { CommentService } from 'src/app/services/comments.service';
 import { TopicComment } from 'src/app/services/topics.service';
 
 @Component({
-  selector: 'app-create-comment',
-  templateUrl: './create-comment.component.html',
-  styleUrls: ['./create-comment.component.scss'],
-  standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+    selector: 'app-create-comment',
+    templateUrl: './create-comment.component.html',
+    styleUrls: ['./create-comment.component.scss'],
+    imports: [ReactiveFormsModule, CommonModule],
+    standalone: true,
 })
 export class CreateCommentComponent {
   @Input() topicId!: string;

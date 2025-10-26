@@ -10,7 +10,8 @@ import dayjs from 'dayjs';
 import { TopicStatus } from '../models/topic-status.enum';
 
 @Directive({
-  selector: '[appDueDateColor]',
+    selector: '[appDueDateColor]',
+    standalone: false
 })
 export class DueDateColorDirective implements OnChanges {
   @Input() status!: TopicStatus;

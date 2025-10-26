@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { TopicStatus } from '../models/topic-status.enum';
 
 @Pipe({
-  name: 'topicStatus',
+    name: 'topicStatus',
+    standalone: false
 })
 export class TopicStatusPipe implements PipeTransform {
   transform(value: number, ...args: unknown[]): unknown {

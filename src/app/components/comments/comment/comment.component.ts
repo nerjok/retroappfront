@@ -6,11 +6,11 @@ import { Topic, TopicComment } from 'src/app/services/topics.service';
 import { CreateCommentComponent } from '../create-comment/create-comment.component';
 
 @Component({
-  selector: 'app-comment',
-  standalone: true,
-  imports: [CommonModule, FontAwesomeModule, CreateCommentComponent],
-  templateUrl: './comment.component.html',
-  styleUrl: './comment.component.scss'
+    selector: 'app-comment',
+    imports: [CommonModule, FontAwesomeModule, CreateCommentComponent],
+    templateUrl: './comment.component.html',
+    styleUrl: './comment.component.scss',
+    standalone: true
 })
 export class CommentComponent {
   faEdit = faEdit;
