@@ -30,41 +30,56 @@ import { ToastModule } from 'primeng/toast';
 import { responseInterceptor } from './interceptors/requests.interceptor';
 import { MessageService } from 'primeng/api';
 import { CommentComponent } from './components/comments/comment/comment.component';
+import { providePrimeNG } from 'primeng/config';
+import Aura from '@primeuix/themes/aura';
 
-@NgModule({ declarations: [
-        AppComponent,
-        LoginComponent,
-        TopicsComponent,
-        TopicViewComponent,
-        // CreateCommentComponent,
-        EditCommentComponent,
-        EditTopicComponent,
-        RegisterComponent,
-        AuthFormComponent,
-        MainInfoComponent,
-        EditModalComponent,
-        TopicStatusPipe,
-        DueDateColorDirective,
-    ],
-    bootstrap: [AppComponent], imports: [MainPageComponent,
-        TopicFormComponent,
-        CreateCommentComponent,
-        CommentComponent,
-        BrowserModule,
-        AppRoutingModule,
-        CommonModule,
-        ReactiveFormsModule,
-        FormsModule,
-        NgbModule,
-        SimpleFormGroupComponent,
-        FontAwesomeModule,
-        ModalModule,
-        NgSelectModule,
-        ToastModule,
-        BrowserAnimationsModule], providers: [
-        MessageService,
-        provideHttpClient(withInterceptors([responseInterceptor])),
-        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-        provideHttpClient(withInterceptorsFromDi()),
-    ] })
+@NgModule({
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    TopicsComponent,
+    TopicViewComponent,
+    // CreateCommentComponent,
+    EditCommentComponent,
+    EditTopicComponent,
+    RegisterComponent,
+    AuthFormComponent,
+    MainInfoComponent,
+    EditModalComponent,
+    TopicStatusPipe,
+    DueDateColorDirective,
+  ],
+  bootstrap: [AppComponent], imports: [MainPageComponent,
+    TopicFormComponent,
+    CreateCommentComponent,
+    CommentComponent,
+    BrowserModule,
+    AppRoutingModule,
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    NgbModule,
+    SimpleFormGroupComponent,
+    FontAwesomeModule,
+    ModalModule,
+    NgSelectModule,
+    ToastModule,
+    BrowserAnimationsModule], 
+    providers: [
+      MessageService,
+        providePrimeNG({
+            theme: {
+                preset: Aura,
+                options: {
+                    prefix: 'p',
+                    darkModeSelector: 'system',
+                    cssLayer: false
+                }
+            }
+        }),
+      provideHttpClient(withInterceptors([responseInterceptor])),
+      { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+      provideHttpClient(withInterceptorsFromDi()),
+    ]
+})
 export class AppModule { }

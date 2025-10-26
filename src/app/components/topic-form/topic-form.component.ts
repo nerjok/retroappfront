@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { TopicStatus, topicStatus } from 'src/app/shared/models/topic-status.enu
     selector: 'app-topic-form',
     templateUrl: './topic-form.component.html',
     styleUrls: ['./topic-form.component.scss'],
-    imports: [CommonModule, ReactiveFormsModule, SimpleFormGroupComponent, NgbModule, NgSelectModule],
+    imports: [ReactiveFormsModule, SimpleFormGroupComponent, NgbModule, NgSelectModule],
     standalone: true,
 })
 export class TopicFormComponent implements OnInit {

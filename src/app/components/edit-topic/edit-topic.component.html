@@ -1,4 +1,4 @@
 <h1>Edit Topic</h1>
-<ng-container *ngIf="topic$ | async as topic">
+@if (topic$ | async; as topic) {
   <app-topic-form [topic]="topic"></app-topic-form>
-</ng-container>
+}

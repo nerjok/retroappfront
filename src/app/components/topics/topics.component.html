@@ -12,33 +12,35 @@
     </tr>
   </thead>
   <tbody>
-    <ng-container *ngIf="topics$ | async as topics">
-      <tr *ngFor="let topic of topics.data" [appDueDateColor]="topic.dueDate" [status]="topic.status">
-        <td scope="row">#</td>
-        <td>{{ topic.name }}</td>
-        <td>{{ topic.comment }}</td>
-        <td>{{ topic.dueDate | date }}</td>
-        <td>{{ topic.status | topicStatus }}</td>
-        <td>
-          <div class="d-flex">
-            <button
-              (click)="editTopic(topic)"
-              type="button"
-              class="btn btn-primary btn-sm me-1"
-            >
-              <fa-icon [icon]="faEdit"></fa-icon>
-            </button>
-
-            <!-- <button
+    @let topicsData = topics$ | async;
+    @if (topicsData) {
+      @for (topic of topicsData.data; track topic) {
+        <tr [appDueDateColor]="topic.dueDate" [status]="topic.status">
+          <td scope="row">#</td>
+          <td>{{ topic.name }}</td>
+          <td>{{ topic.comment }}</td>
+          <td>{{ topic.dueDate | date }}</td>
+          <td>{{ topic.status | topicStatus }}</td>
+          <td>
+            <div class="d-flex">
+              <button
+                (click)="editTopic(topic)"
+                type="button"
+                class="btn btn-primary btn-sm me-1"
+                >
+                <fa-icon [icon]="faEdit"></fa-icon>
+              </button>
+              <!-- <button
               type="button"
               class="btn btn-primary btn-sm"
               (click)="viewTopic(topic)"
-            >
+              >
               <fa-icon [icon]="faEye"></fa-icon>
             </button> -->
           </div>
         </td>
       </tr>
-    </ng-container>
-  </tbody>
+    }
+  }
+</tbody>
 </table>

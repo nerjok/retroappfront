@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   AfterContentInit,
   AfterViewInit,
@@ -18,7 +18,7 @@ import {
     selector: 'app-simple-form-group',
     templateUrl: './simple-form-group.component.html',
     styleUrls: ['./simple-form-group.component.scss'],
-    imports: [CommonModule],
+    imports: [],
     standalone: true
 })
 export class SimpleFormGroupComponent implements AfterViewInit {

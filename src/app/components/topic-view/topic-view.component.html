@@ -6,7 +6,7 @@
         aria-label="Edit-topic"
         type="button"
         class="btn btn-primary btn-sm"
-      >
+        >
         <fa-icon
           aria-hidden="true"
           title="Edit Topic"
@@ -16,39 +16,49 @@
     </div>
   </div>
 
-  <p *ngIf="topic.status !== null">
-    <b>Status: </b> {{ topic.status | topicStatus }}
-  </p>
-  <p *ngIf="topic.comment"><b>Description: </b>{{ topic.comment }}</p>
-  <p *ngIf="topic.dueDate"><b>Due date: </b> {{ topic.dueDate | date }}</p>
+  @if (topic.status !== null) {
+    <p>
+      <b>Status: </b> {{ topic.status | topicStatus }}
+    </p>
+  }
+  @if (topic.comment) {
+    <p><b>Description: </b>{{ topic.comment }}</p>
+  }
+  @if (topic.dueDate) {
+    <p><b>Due date: </b> {{ topic.dueDate | date }}</p>
+  }
   <div class="border-bottom border-primary mt-3 mb-5"></div>
   <!-- {{ topic?.comments| json }} -->
-  <ng-container *ngIf="comments">
-    <div class="card mb-3" *ngFor="let comment of comments">
-      <!-- <div > -->
-      <div class="card-body">
-        <div class="d-flex justify-content-between">
-          <h5 class="card-title">{{ comment.name }}</h5>
-          <span>
-            <b class="me-2">
-              {{ comment.updatedDate | date }}
-            </b>
-            <button
-              (click)="editComment(comment)"
-              type="button"
-              class="btn btn-primary btn-sm"
-            >
-              <fa-icon [icon]="faEdit"></fa-icon>
-            </button>
-          </span>
+  @if (comments) {
+    @for (comment of comments; track comment) {
+      <div class="card mb-3">
+        <!-- <div > -->
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <h5 class="card-title">{{ comment.name }}</h5>
+            <span>
+              <b class="me-2">
+                {{ comment.updatedDate | date }}
+              </b>
+              <button
+                (click)="editComment(comment)"
+                type="button"
+                class="btn btn-primary btn-sm"
+                >
+                <fa-icon [icon]="faEdit"></fa-icon>
+              </button>
+            </span>
+          </div>
+          <p class="card-text">{{ comment.text }}</p>
         </div>
-        <p class="card-text">{{ comment.text }}</p>
-      </div>
       <!-- </div> -->
     </div>
-  </ng-container>
-  <div *ngIf="topic && topic.id" class="mt-5">
+  }
+}
+@if (topic && topic.id) {
+  <div class="mt-5">
     <h2>Add comment</h2>
     <app-create-comment [topicId]="topic.id"></app-create-comment>
   </div>
+}
 </div>

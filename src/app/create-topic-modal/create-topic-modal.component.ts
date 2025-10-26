@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, inject, signal } from '@angular/core';
 import { ModalBaseComponent } from '../shared/components/modal/modal-base/modal-base.component';
 import { Topic } from '../services/topics.service';
@@ -7,7 +7,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-create-topic-modal',
-    imports: [CommonModule, ModalBaseComponent, TopicFormComponent],
+    imports: [ModalBaseComponent, TopicFormComponent],
     templateUrl: './create-topic-modal.component.html',
     styleUrl: './create-topic-modal.component.scss',
     standalone: true

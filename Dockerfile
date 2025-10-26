@@ -19,7 +19,7 @@ RUN rm -rf src
 # Use official nginx image as the base image
 FROM nginx:latest
 
-COPY --from=build /usr/local/app/dist/retrofront /usr/share/nginx/html
+COPY --from=build /usr/local/app/dist/retrofront/browser /usr/share/nginx/html
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY nginx.conf /etc/nginx/nginx.conf

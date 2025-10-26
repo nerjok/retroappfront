@@ -1,7 +1,8 @@
 <!-- <section class="section-width" role="dialog" aria-modal="true" aria-describedby="modal-body"> -->
-  <div class="modal-header" *ngIf="modalHeader || title">
+@if (modalHeader || title) {
+  <div class="modal-header">
     <ng-container [ngTemplateOutlet]="modalHeader ? modalHeader : defaultHeaderTemplate"></ng-container>
-      <button
+    <button
       type="button"
       class="btn-close"
       data-bs-dismiss="modal"
@@ -9,13 +10,14 @@
       (click)="close()"
     ></button>
   </div>
-  <div class="body modal-body" id="modal-body">
-    <ng-content></ng-content>
-  </div>
+}
+<div class="body modal-body" id="modal-body">
+  <ng-content></ng-content>
+</div>
 
-  <div class="modal-footer">
-    <ng-container [ngTemplateOutlet]="modalFooter ? modalFooter : defaultFooterTemplate"></ng-container>
-  </div>
+<div class="modal-footer">
+  <ng-container [ngTemplateOutlet]="modalFooter ? modalFooter : defaultFooterTemplate"></ng-container>
+</div>
 <!-- </section> -->
 
 <ng-template #defaultFooterTemplate>
@@ -24,5 +26,7 @@
 </ng-template>
 
 <ng-template #defaultHeaderTemplate>
-  <h2 *ngIf="title">{{ title }}</h2>
+  @if (title) {
+    <h2>{{ title }}</h2>
+  }
 </ng-template>

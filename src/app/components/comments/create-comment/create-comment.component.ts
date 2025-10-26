@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,7 +9,7 @@ import { TopicComment } from 'src/app/services/topics.service';
     selector: 'app-create-comment',
     templateUrl: './create-comment.component.html',
     styleUrls: ['./create-comment.component.scss'],
-    imports: [ReactiveFormsModule, CommonModule],
+    imports: [ReactiveFormsModule],
     standalone: true,
 })
 export class CreateCommentComponent {
