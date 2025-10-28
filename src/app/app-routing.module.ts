@@ -18,6 +18,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { MainInfoComponent } from './components/main-info/main-info.component';
 import { AuthService } from './services/auth.service';
 import { MainPageComponent } from './components/main-page/main-page.component';
+import { SwimlaneComponent } from './components/swimlane/swimlane.component';
 
 const canActivate: CanActivateFn = (
   route: ActivatedRouteSnapshot,
@@ -51,6 +52,7 @@ export const routes: Routes = [
         },
       },
       { path: 'edit-comment', component: EditCommentComponent },
+      { path: 'swimlane', component: SwimlaneComponent },
       {
         path: 'topics',
         component: TopicsComponent,
