@@ -1,10 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { AsyncPipe, JsonPipe } from '@angular/common';
+import { ChangeDetectorRef, Component, inject, OnInit, viewChild } from '@angular/core';
 import moment from 'moment';
-import { Events, Item, NgxResourceTimelineModule, NgxResourceTimelineService, Period, Section } from 'ngx-resource-timeline';
+import { Events, Item, NgxResourceTimelineComponent, NgxResourceTimelineModule, NgxResourceTimelineService, Period, Section } from 'ngx-resource-timeline';
+import { BehaviorSubject } from 'rxjs';
+import { TopicsService } from 'src/app/services/topics.service';
+import { TopicStatus } from 'src/app/shared/models/topic-status.enum';
 
 @Component({
   selector: 'app-swimlane',
-  imports: [NgxResourceTimelineModule],
+  imports: [NgxResourceTimelineModule, AsyncPipe, JsonPipe],
   templateUrl: './swimlane.component.html',
   styleUrl: './swimlane.component.scss',
 
@@ -14,16 +18,22 @@ export class SwimlaneComponent implements OnInit {
   periods: Period[] = [];
   sections: Section[] = [];
   items: Item[] = [];
+
+  swimalane=viewChild(NgxResourceTimelineComponent);
   // start = moment('2025-10-01').endOf('day');
     start = moment().startOf('month').endOf('day');
 
+  topicService = inject(TopicsService);
+  changeDetectoreRef = inject(ChangeDetectorRef);
 
+  items$ = new BehaviorSubject<Item[]>([]);
   constructor(private service: NgxResourceTimelineService) { }
 
   ngOnInit() {
     this.events.SectionClickEvent = (section) => console.log('Section clicked:', section);
     this.events.ItemClicked = (item) => console.log('Item clicked:', item);
     this.events.ItemDropped = (item) => console.log('Item dropped:', item);
+
 
     this.periods = [
       {
@@ -58,39 +68,59 @@ export class SwimlaneComponent implements OnInit {
     ];
 
     this.sections = [
-      { name: 'A', id: 1 },
-      { name: 'B', id: 2 },
-      { name: 'C', id: 3 },
-      { name: 'D', id: 4 },
-      { name: 'E', id: 5 }
+      { name: 'Events', id: 1 },
+      // { name: 'B', id: 2 },
+      // { name: 'C', id: 3 },
+      // { name: 'D', id: 4 },
+      // { name: 'E', id: 5 }
     ];
 
-    this.items = [
-      {
-        id: 1,
+    this.events.PeriodChange = (start, end) => {
+      this.onPeriodChange.bind(this)(start, end);
+      // console.log('Period changed:', start.format('YYYY-MM-DD'), 'to', end.format('YYYY-MM-DD'));
+    }
+
+    this.onPeriodChange(
+      this.start.clone().utc().startOf('day'),
+      this.start.clone().utc().add(4, 'weeks').endOf('day')
+    );
+
+  }
+
+  onPeriodChange(start: moment.Moment, end: moment.Moment) {
+    console.log('Period changed to:', start, end);
+    this.topicService.topics(0, start, end ).subscribe((data) => {
+      console.log('[ topics ]', data);
+      const items: Item[] = data.data.map((topic, index) => ({
+        id: index,
         sectionID: 1,
-        name: 'Item 1',
-        start: moment().startOf('day'),
-        end: moment().add(5, 'days').endOf('day'),
-        classes: ''
-      },
-      {
-        id: 2,
-        sectionID: 3,
-        name: 'Item 2',
-        start: moment().startOf('day'),
-        end: moment().add(4, 'days').endOf('day'),
-        classes: ''
-      },
-      {
-        id: 3,
-        sectionID: 1,
-        name: 'Item 3',
-        start: moment().add(1, 'days').startOf('day'),
-        end: moment().add(3, 'days').endOf('day'),
-        classes: ''
-      }
-    ];
+        name: topic.name,
+        start: moment(topic.addedDate).startOf('day'),
+        end: moment(topic.dueDate).endOf('day'),
+        classes: moment(topic.dueDate).isBefore(moment()) && topic.status === TopicStatus.InProgress ? 'bg-red' : '',
+        metadata: topic
+      }));
+      this.items = items;
+      this.changeDetectoreRef.markForCheck();
+      this.changeDetectoreRef.detectChanges();
+      console.log('this.item', this.items, this.swimalane());
+      // this.items$.next([]);
+      this.items$.next(items);
+      // const swimlane = this.swimalane();
+      // swimlane!.ngOnInit();
+      // swimlane!.refreshView();
+      // swimlane!.refresh();
+      // swimlane!.itemPush();
+      // swimlane!.setItemsInSectionItems();
+      // this.service.sectionRemove(1);
+      // setTimeout(() => {
+        
+      //   this.service.sectionPush({ name: 'A', id: 1 });
+      //   items.forEach(item => {
+      //     this.service.itemPush(item);
+      //   });
+      // }, 100);
+    });
   }
 
   addItem() {

@@ -1,8 +1,11 @@
 <div class="full-width">
 
 </div>
+@let items2 = items$  | async;
+
+{{ items2?.length }}
 <ngx-rt
-  [items]="items"
+  [items]="(items$ | async)  ?? []"
   [periods]="periods"
   [sections]="sections"
   [events]="events"

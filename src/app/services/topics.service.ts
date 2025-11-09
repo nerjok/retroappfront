@@ -15,6 +15,7 @@ export interface Topic {
   name: string;
   comment: string;
   comments: TopicComment[];
+  addedDate: string; //iso string of date
   dueDate: string; //iso string of date
   status: TopicStatus;
 }
@@ -36,8 +37,10 @@ export class TopicsService {
     return this.http.get<Topic>(`${baseUrl}api/topics/${topicId}`);
   }
 
-  topics(page = 0): Observable<Pager<Topic>> {
-    return this.http.get<Pager<Topic>>(`${baseUrl}api/topics?page=${page}`);
+  topics(page = 0, from?: moment.Moment, to?: moment.Moment): Observable<Pager<Topic>> {
+    const dateFrom = from ? from.toISOString() : '';
+    const dateTo = to ? to.toISOString() : '';
+    return this.http.get<Pager<Topic>>(`${baseUrl}api/topics?page=${page}${dateFrom ? '&dateFrom=' + dateFrom : ''}${dateTo ? '&dateTo=' + dateTo : ''}`).pipe(shareReplay(1));
   }
 
   createTopic(topic: Topic) {
