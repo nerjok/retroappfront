@@ -3,8 +3,8 @@
 </div>
 @let items2 = items$  | async;
 
-{{ items2?.length }}
-<ngx-rt
+<b>Events:</b> {{ items2?.length }}
+<ngx-ts
   [items]="(items$ | async)  ?? []"
   [periods]="periods"
   [sections]="sections"
@@ -13,4 +13,4 @@
   [allowDragging]="true"
   [showGoto]="false"
   [start]="start"
-></ngx-rt>
+></ngx-ts>

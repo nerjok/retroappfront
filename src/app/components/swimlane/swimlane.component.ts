@@ -1,14 +1,16 @@
 import { AsyncPipe, JsonPipe } from '@angular/common';
 import { ChangeDetectorRef, Component, inject, OnInit, viewChild } from '@angular/core';
 import moment from 'moment';
-import { Events, Item, NgxResourceTimelineComponent, NgxResourceTimelineModule, NgxResourceTimelineService, Period, Section } from 'ngx-resource-timeline';
+// import { Events, Item, NgxResourceTimelineComponent, NgxResourceTimelineModule, NgxResourceTimelineService, Period, Section } from 'ngx-resource-timeline';
+import { Events, Item, NgxTimeSchedulerComponent, Period, Section, NgxTimeSchedulerModule, NgxTimeSchedulerService } from 'ngx-event-scheduler';
+
 import { BehaviorSubject } from 'rxjs';
 import { TopicsService } from 'src/app/services/topics.service';
 import { TopicStatus } from 'src/app/shared/models/topic-status.enum';
 
 @Component({
   selector: 'app-swimlane',
-  imports: [NgxResourceTimelineModule, AsyncPipe, JsonPipe],
+  imports: [NgxTimeSchedulerModule, AsyncPipe, JsonPipe],
   templateUrl: './swimlane.component.html',
   styleUrl: './swimlane.component.scss',
 
@@ -19,7 +21,7 @@ export class SwimlaneComponent implements OnInit {
   sections: Section[] = [];
   items: Item[] = [];
 
-  swimalane=viewChild(NgxResourceTimelineComponent);
+  swimalane=viewChild(NgxTimeSchedulerComponent);
   // start = moment('2025-10-01').endOf('day');
     start = moment().startOf('month').endOf('day');
 
@@ -27,7 +29,7 @@ export class SwimlaneComponent implements OnInit {
   changeDetectoreRef = inject(ChangeDetectorRef);
 
   items$ = new BehaviorSubject<Item[]>([]);
-  constructor(private service: NgxResourceTimelineService) { }
+  constructor(private service: NgxTimeSchedulerService) { }
 
   ngOnInit() {
     this.events.SectionClickEvent = (section) => console.log('Section clicked:', section);
