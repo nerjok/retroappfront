@@ -4,13 +4,15 @@
 @let items2 = items$  | async;
 
 <b>Events:</b> {{ items2?.length }}
-<ngx-ts
-  [items]="(items$ | async)  ?? []"
-  [periods]="periods"
-  [sections]="sections"
-  [events]="events"
-  [showBusinessDayOnly]="false"
-  [allowDragging]="true"
-  [showGoto]="false"
-  [start]="start"
-></ngx-ts>
+@if(displaySwimlane()){
+  <ngx-ts
+    [items]="(items$ | async)  ?? []"
+    [periods]="periods"
+    [sections]="sections"
+    [events]="events"
+    [showBusinessDayOnly]="false"
+    [allowDragging]="true"
+    [showGoto]="false"
+    [start]="start"
+  ></ngx-ts>
+}

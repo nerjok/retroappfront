@@ -1,5 +1,5 @@
 import { AsyncPipe, JsonPipe } from '@angular/common';
-import { ChangeDetectorRef, Component, inject, OnInit, viewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit, signal, viewChild } from '@angular/core';
 import moment from 'moment';
 // import { Events, Item, NgxResourceTimelineComponent, NgxResourceTimelineModule, NgxResourceTimelineService, Period, Section } from 'ngx-resource-timeline';
 import { Events, Item, NgxTimeSchedulerComponent, Period, Section, NgxTimeSchedulerModule, NgxTimeSchedulerService } from 'ngx-event-scheduler';
@@ -29,6 +29,8 @@ export class SwimlaneComponent implements OnInit {
   changeDetectoreRef = inject(ChangeDetectorRef);
 
   items$ = new BehaviorSubject<Item[]>([]);
+
+  displaySwimlane = signal(true);
   constructor(private service: NgxTimeSchedulerService) { }
 
   ngOnInit() {
@@ -92,6 +94,7 @@ export class SwimlaneComponent implements OnInit {
   onPeriodChange(start: moment.Moment, end: moment.Moment) {
     console.log('Period changed to:', start, end);
     this.topicService.topics(0, start, end ).subscribe((data) => {
+      this.displaySwimlane.set(false);
       console.log('[ topics ]', data);
       const items: Item[] = data.data.map((topic, index) => ({
         id: index,
@@ -109,11 +112,16 @@ export class SwimlaneComponent implements OnInit {
       // this.items$.next([]);
       this.items$.next(items);
       // const swimlane = this.swimalane();
+      // swimlane!.changePeriod(swimlane?.currentPeriod!, false);
       // swimlane!.ngOnInit();
-      // swimlane!.refreshView();
-      // swimlane!.refresh();
-      // swimlane!.itemPush();
+      // // swimlane!.refreshView();
+      // // swimlane!.refresh();
+      // // swimlane!.itemPush();
       // swimlane!.setItemsInSectionItems();
+      // swimlane!.refreshView();
+      // swimlane!['changeDetector'].markForCheck();
+      // swimlane!['changeDetector'].detectChanges();
+      this.displaySwimlane.set(true);
       // this.service.sectionRemove(1);
       // setTimeout(() => {
         

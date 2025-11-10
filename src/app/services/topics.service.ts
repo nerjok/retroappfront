@@ -40,7 +40,7 @@ export class TopicsService {
   topics(page = 0, from?: moment.Moment, to?: moment.Moment): Observable<Pager<Topic>> {
     const dateFrom = from ? from.toISOString() : '';
     const dateTo = to ? to.toISOString() : '';
-    return this.http.get<Pager<Topic>>(`${baseUrl}api/topics?page=${page}${dateFrom ? '&dateFrom=' + dateFrom : ''}${dateTo ? '&dateTo=' + dateTo : ''}`).pipe(shareReplay(1));
+    return this.http.get<Pager<Topic>>(`${baseUrl}api/topics?page=${page}${dateFrom ? '&dateFrom=' + dateFrom : ''}${dateTo ? '&dateTo=' + dateTo : ''}`);//.pipe(shareReplay(1));
   }
 
   createTopic(topic: Topic) {

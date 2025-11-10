@@ -9,10 +9,10 @@ import { topicStatus } from 'src/app/shared/models/topic-status.enum';
 import { CreateTopicModalComponent } from 'src/app/create-topic-modal/create-topic-modal.component';
 
 @Component({
-    selector: 'app-topics',
-    templateUrl: './topics.component.html',
-    styleUrls: ['./topics.component.scss'],
-    standalone: false
+  selector: 'app-topics',
+  templateUrl: './topics.component.html',
+  styleUrls: ['./topics.component.scss'],
+  standalone: false
 })
 export class TopicsComponent implements OnInit {
   topics$?: Observable<Pager<Topic>>
@@ -32,14 +32,15 @@ export class TopicsComponent implements OnInit {
   addTopic(): void {
     // this.router.navigate(['create']);
     this.modalService.show(CreateTopicModalComponent, { modalDialogClass: 'modal-dialog-slideoutX modal-dialog-scrollable', scrollable: true }).subscribe((data) => {
-      console.log('[topicCreate]', data);
       this.fetchTopics();
     });
 
   }
 
   editTopic(topic: Topic): void {
-    this.modalService.show(EditModalComponent, { modalDialogClass: 'modal-dialog-slideoutX modal-dialog-scrollable', scrollable: true, data: topic })
+    this.modalService.show(EditModalComponent, { modalDialogClass: 'modal-dialog-slideoutX modal-dialog-scrollable', scrollable: true, data: topic }).subscribe((data) => {
+      this.fetchTopics();
+    })
     // this.router.navigate(['edit', topic.id], { state: topic});
   }
 
