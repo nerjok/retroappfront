@@ -5,8 +5,10 @@ import moment from 'moment';
 import { Events, Item, NgxTimeSchedulerComponent, Period, Section, NgxTimeSchedulerModule, NgxTimeSchedulerService } from 'ngx-event-scheduler';
 
 import { BehaviorSubject } from 'rxjs';
-import { TopicsService } from 'src/app/services/topics.service';
+import { Topic, TopicsService } from 'src/app/services/topics.service';
 import { TopicStatus } from 'src/app/shared/models/topic-status.enum';
+import { EditModalComponent } from '../edit-modal/edit-modal.component';
+import { ModalService } from 'src/app/shared/components/modal/modal.service';
 
 @Component({
   selector: 'app-swimlane',
@@ -21,12 +23,13 @@ export class SwimlaneComponent implements OnInit {
   sections: Section[] = [];
   items: Item[] = [];
 
-  swimalane=viewChild(NgxTimeSchedulerComponent);
+  swimalane = viewChild(NgxTimeSchedulerComponent);
   // start = moment('2025-10-01').endOf('day');
-    start = moment().startOf('month').endOf('day');
+  start = moment().startOf('month').endOf('day');
 
   topicService = inject(TopicsService);
   changeDetectoreRef = inject(ChangeDetectorRef);
+  modalService = inject(ModalService);
 
   items$ = new BehaviorSubject<Item[]>([]);
 
@@ -35,7 +38,10 @@ export class SwimlaneComponent implements OnInit {
 
   ngOnInit() {
     this.events.SectionClickEvent = (section) => console.log('Section clicked:', section);
-    this.events.ItemClicked = (item) => console.log('Item clicked:', item);
+    this.events.ItemClicked = (item) => {
+      console.log('Item clicked:', item);
+      this.editTopic(item.metadata as Topic);
+    }
     this.events.ItemDropped = (item) => console.log('Item dropped:', item);
 
 
@@ -93,7 +99,7 @@ export class SwimlaneComponent implements OnInit {
 
   onPeriodChange(start: moment.Moment, end: moment.Moment) {
     console.log('Period changed to:', start, end);
-    this.topicService.topics(0, start, end ).subscribe((data) => {
+    this.topicService.topics(0, start, end).subscribe((data) => {
       this.displaySwimlane.set(false);
       console.log('[ topics ]', data);
       const items: Item[] = data.data.map((topic, index) => ({
@@ -124,13 +130,20 @@ export class SwimlaneComponent implements OnInit {
       this.displaySwimlane.set(true);
       // this.service.sectionRemove(1);
       // setTimeout(() => {
-        
+
       //   this.service.sectionPush({ name: 'A', id: 1 });
       //   items.forEach(item => {
       //     this.service.itemPush(item);
       //   });
       // }, 100);
     });
+  }
+
+  reloadData() {
+    this.displaySwimlane.set(true);
+    setTimeout(() => {
+      this.displaySwimlane.set(true);
+    }, 0);
   }
 
   addItem() {
@@ -151,4 +164,13 @@ export class SwimlaneComponent implements OnInit {
   removeItem() {
     this.service.itemRemove(4);
   }
+
+  editTopic(topic: Topic): void {
+    this.modalService.show(EditModalComponent, { modalDialogClass: 'modal-dialog-slideoutX modal-dialog-scrollable', scrollable: true, data: topic }).subscribe((data) => {
+      // this.fetchTopics();
+      // this.reloadData();
+    })
+    // this.router.navigate(['edit', topic.id], { state: topic});
+  }
+
 }

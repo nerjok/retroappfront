@@ -1,6 +1,7 @@
 <router-outlet></router-outlet>
 <button (click)="addTopic()" type="button" class="btn btn-primary btn-sm">CreateTopic</button>
 <div class="table-container">
+  @let topicsData = topics$ | async;
   <table class="table">
     <thead>
       <tr>
@@ -13,7 +14,7 @@
       </tr>
     </thead>
     <tbody>
-      @let topicsData = topics$ | async;
+
       @if (topicsData) {
       @for (topic of topicsData.data; track topic) {
       <tr [appDueDateColor]="topic.dueDate" [status]="topic.status">
@@ -41,4 +42,8 @@
       }
     </tbody>
   </table>
+  <p-paginator (onPageChange)="onPageChange($event)" [first]="0" [rows]="10" [totalRecords]="topicsData?.total ?? 0"
+    [showCurrentPageReport]="true" [showPageLinks]="false" [showJumpToPageDropdown]="false"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords}" />
+
 </div>

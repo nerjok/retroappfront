@@ -13,6 +13,7 @@
     background: rgb(242, 170, 170);
   }
 }
+
 .gray-row {
   td {
     background: hsl(39, 85%, 73%);
@@ -22,9 +23,14 @@
 //swimlane styles
 ngx-ts .btn,
 ngx-rt .btn {
-  height: unset!important;
+  height: unset !important;
 }
 
 .bg-red {
-    background-color: darkred !important;
+  background-color: darkred !important;
+}
+
+// main
+.p-timeline-event-opposite {
+  display: none;
 }

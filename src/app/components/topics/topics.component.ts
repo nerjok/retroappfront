@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { Pager, Topic, TopicsService } from 'src/app/services/topics.service';
 import { EditModalComponent } from '../edit-modal/edit-modal.component';
 import { ModalService } from 'src/app/shared/components/modal/modal.service';
-import { topicStatus } from 'src/app/shared/models/topic-status.enum';
 import { CreateTopicModalComponent } from 'src/app/create-topic-modal/create-topic-modal.component';
 
 @Component({
@@ -25,8 +24,8 @@ export class TopicsComponent implements OnInit {
     this.fetchTopics();
   }
 
-  fetchTopics(): void {
-    this.topics$ = this.topicsService.topics();
+  fetchTopics(page = 0): void {
+    this.topics$ = this.topicsService.topics(page);
   }
 
   addTopic(): void {
@@ -46,5 +45,10 @@ export class TopicsComponent implements OnInit {
 
   viewTopic(topic: Topic): void {
     this.router.navigate(['view', topic.id], { relativeTo: this.activatedRoute });
+  }
+
+  onPageChange(event: any): void {
+    console.log('[[ pageChange ]]', event);
+    this.fetchTopics(event.page);
   }
 }

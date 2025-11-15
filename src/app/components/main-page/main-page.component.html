@@ -1,20 +1,62 @@
 <div class="card p-5">
-    <h1>Statuses of topics</h1>
-    <p-timeline [value]="events" align="alternate" class="customized-timeline">
-        <ng-template #marker let-event>
-            <span class="flex w-8 h-8 items-center justify-center text-white rounded-full z-10 shadow-sm" [style]="{ 'background-color': event.color }">
-                <!-- <i [class]="event.icon"></i> -->
-                 <fa-icon [icon]="faEdit"></fa-icon>
-            </span>
-        </ng-template>
-        <ng-template #content let-event>
-            <p-card [header]="event.status" [subheader]="event.date">
-                <img *ngIf="event.image" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + event.image" [alt]="event.name" width="200" class="shadow" />
-                <p>
-                    {{event.description}}
-                </p>
-                <!-- <p-button label="Read more" [text]="true" /> -->
-            </p-card>
-        </ng-template>
-    </p-timeline>
+	<h1 class="fs-3 mb-3">Application dashboard</h1>
+
+	<div class="row">
+		<div class="col-sm-12 col-md-6 col-12">
+			<h2 class="mb-5 fs-6">Due date has passed</h2>
+			@let oTopics = overdoTopics$ | async;
+			@if (oTopics) {
+			<ol class="list-group list-group-numbered">
+				@for (topic of oTopics.data; track topic.name) {
+
+
+				<li class="list-group-item list-group-item-danger d-flex justify-content-between align-items-start">
+					<div class="ms-2 me-auto w-100">
+						<div class="fw-bold">{{topic.name}}</div>
+						<div>
+
+							{{topic.comment}}
+						</div>
+						<div class="d-flex flex-row-reverse">
+
+							<i >{{topic.dueDate | date}}</i>
+						</div>
+					</div>
+				</li>
+				}
+			</ol>
+			}
+		</div>
+		<div class="col-md-6 col-12">
+			<h2 class="mb-5 fs-6">Topics statuses</h2>
+			<p-timeline class="w-full" [value]="events">
+				<ng-template #content let-event>
+					<p-card [header]="event.status" [subheader]="event.date">
+						<img *ngIf="event.image" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + event.image"
+							[alt]="event.name" width="200" class="shadow" />
+						<p>
+							{{event.description}}
+						</p>
+						<!-- <p-button label="Read more" [text]="true" /> -->
+					</p-card>
+				</ng-template>
+			</p-timeline>
+		</div>
+	</div>
+
 </div>
+<!-- <p-timeline [value]="events" align="alternate" class="customized-timeline">
+    <ng-template #marker let-event>
+        <span class="flex w-8 h-8 items-center justify-center text-white rounded-full z-10 shadow-sm" [style]="{ 'background-color': event.color }">
+             <fa-icon [icon]="faEdit"></fa-icon>
+        </span>
+    </ng-template>
+    <ng-template #content let-event>
+        <p-card [header]="event.status" [subheader]="event.date">
+            <img *ngIf="event.image" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + event.image" [alt]="event.name" width="200" class="shadow" />
+            <p>
+                {{event.description}}
+            </p>
+        </p-card>
+    </ng-template>
+</p-timeline> -->

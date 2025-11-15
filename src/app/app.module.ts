@@ -32,6 +32,7 @@ import { MessageService } from 'primeng/api';
 import { CommentComponent } from './components/comments/comment/comment.component';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
+import { PaginatorModule } from 'primeng/paginator';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,9 @@ import Aura from '@primeuix/themes/aura';
     TopicStatusPipe,
     DueDateColorDirective,
   ],
-  bootstrap: [AppComponent], imports: [MainPageComponent,
+  bootstrap: [AppComponent], imports: [
+    PaginatorModule ,
+    MainPageComponent,
     TopicFormComponent,
     CreateCommentComponent,
     CommentComponent,

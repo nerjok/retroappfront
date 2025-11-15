@@ -43,6 +43,11 @@ export class TopicsService {
     return this.http.get<Pager<Topic>>(`${baseUrl}api/topics?page=${page}${dateFrom ? '&dateFrom=' + dateFrom : ''}${dateTo ? '&dateTo=' + dateTo : ''}`);//.pipe(shareReplay(1));
   }
 
+  overdoTopics(page = 0): Observable<Pager<Topic>> {
+
+    return this.http.get<Pager<Topic>>(`${baseUrl}api/topics/overdo?page=${page}`);
+  }
+
   createTopic(topic: Topic) {
     return this.http.post(`${baseUrl}api/topics`, topic);
   }
