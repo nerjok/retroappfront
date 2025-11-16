@@ -1,0 +1,96 @@
+<button (click)="addGoal()" type="button" class="btn btn-primary btn-sm">Create Goal</button>
+
+<div class="table-containerX">
+  <p-splitter class="mb-8" [panelSizes]="panelSizes() ?? [100]">
+    <ng-template #panel>
+      <h2 class="mb-5 fs-6">Goals list</h2>
+
+      @let topicsData = goals$ | async;
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <!-- <th scope="col">Comment</th> -->
+            <th scope="col">Due Date</th>
+            <!-- <th scope="col">Resolution</th> -->
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          @if (topicsData) {
+          @for (goal of topicsData.data; track goal.name) {
+          <tr>
+            <td scope="row">#</td>
+            <td>{{ goal.name }}</td>
+            <!-- <td>{{ topic.comment }}</td> -->
+            <td>{{ goal.dueDate | date }}</td>
+            <!-- <td>{{ topic.status | topicStatus }}</td> -->
+            <td>
+              <div class="d-flex">
+                <button (click)="preview(goal)" type="button" class="btn btn-primary btn-sm me-1">
+                  <fa-icon [icon]="faMagnifyingGlass" />
+                </button>
+                <button (click)="onEditGoal(goal)" type="button" class="btn btn-primary btn-sm me-1">
+                  <fa-icon [icon]="faEdit" />
+                </button>
+              </div>
+            </td>
+          </tr>
+          }
+          }
+        </tbody>
+      </table>
+    </ng-template>
+    <ng-template #panel>
+      <div class="p-3">
+        @if(activeGoal()){
+        <div class="d-flex justify-content-between">
+
+          <h2 class="mb-5  fs-6">{{activeGoal()!.name}}</h2>
+          <div>
+
+            <button class="btn btn-secondary" (click)="oncloseClick()">&times;</button>
+          </div>
+        </div>
+        @if(isEditMode()){
+        <app-goal-form [goal]="activeGoal() ?? undefined" (goalUpdated)="onGoalUpdate()" />
+
+        }@else {
+
+        <p>{{activeGoal()!.comment}}</p>
+        <i>{{ activeGoal()!.updatedDate | date}}</i>
+
+        <hr>
+        <!-- {{ activeGoal() | json }} -->
+        @let goalTopics = activeGoalTopics$| async;
+        @if(goalTopics){
+        <h3 class="mt-4 mb-2 fs-6">Topics related to this goal</h3>
+        <ul class="list-group">
+          @for(topic of goalTopics.data; track topic.id){
+          <li class="list-group-item">
+            <div class="d-flex justify-content-between">
+
+              <div class="fw-bold">{{topic.name}}</div>
+              <button class="btn btn-info btn-sm" (click)="onReviewTopic(topic)">
+                <fa-icon [icon]="faMagnifyingGlass" />
+              </button>
+            </div>
+            <div>
+              {{topic.comment}}
+            </div>
+            <div class="d-flex flex-row-reverse">
+              <i>{{topic.dueDate | date}}</i>
+            </div>
+          </li>
+          }
+        </ul>
+        }
+        }
+        }
+      </div>
+
+    </ng-template>
+  </p-splitter>
+</div>

@@ -18,6 +18,7 @@ export interface Topic {
   addedDate: string; //iso string of date
   dueDate: string; //iso string of date
   status: TopicStatus;
+  goalId?: string;
 }
 export interface TopicComment {
   id?: string;
@@ -47,6 +48,12 @@ export class TopicsService {
 
     return this.http.get<Pager<Topic>>(`${baseUrl}api/topics/overdo?page=${page}`);
   }
+
+  goalTopics(goalId: string, page = 0): Observable<Pager<Topic>> {
+
+    return this.http.get<Pager<Topic>>(`${baseUrl}api/topics/goal-topics?page=${page}&goalId=${goalId}`);
+  }
+
 
   createTopic(topic: Topic) {
     return this.http.post(`${baseUrl}api/topics`, topic);

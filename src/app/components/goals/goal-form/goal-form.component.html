@@ -1,4 +1,4 @@
-<div [formGroup]="topicsFormGroup">
+<div [formGroup]="goalFormGroup">
   <div class="col-12">
     <app-simple-form-group label="Topic name">
       <input type="text" formControlName="name" class="form-control" id="title" />
@@ -7,11 +7,6 @@
   <div class="col-12">
     <app-simple-form-group label="Status">
       <ng-select [items]="topicStatuses" bindLabel="title" bindValue="value" formControlName="status"></ng-select>
-    </app-simple-form-group>
-  </div>
-    <div class="col-12">
-    <app-simple-form-group label="Goals">
-      <ng-select [items]="(goals$ | async) ?? []" bindLabel="title" bindValue="value" formControlName="goalId"></ng-select>
     </app-simple-form-group>
   </div>
   <div class="col-12">
@@ -25,7 +20,7 @@
       <div class="input-group">
         <input id="dueDate" class="form-control" placeholder="yyyy-mm-dd" name="dp" formControlName="dueDate"
           ngbDatepicker #d="ngbDatepicker" />
-        <button class="btn btn-outline-secondary bi bi-calendar3" [disabled]="topicsFormGroup.disabled"
+        <button class="btn btn-outline-secondary bi bi-calendar3" [disabled]="goalFormGroup.disabled"
           (click)="d.toggle()" type="button">
           #
         </button>
@@ -35,7 +30,7 @@
 
 </div>
 
-@if(topic) {
-<button class="btn btn-secondary btn-sm me-1" (click)="editForm()">Edit</button>
-}
-<button class="btn btn-primary btn-sm" (click)="saveTopic()">Save</button>
+<!-- @if(goal()) {
+<button class="btn btn-secondary btn-sm me-1" (click)="saveGoal()">Edit</button>
+} -->
+<button class="btn btn-primary btn-sm" (click)="saveGoal()">Save</button>

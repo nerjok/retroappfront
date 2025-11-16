@@ -3,7 +3,7 @@ import { TopicStatus } from '../models/topic-status.enum';
 
 @Pipe({
     name: 'topicStatus',
-    standalone: false
+    standalone: true
 })
 export class TopicStatusPipe implements PipeTransform {
   transform(value: number, ...args: unknown[]): unknown {

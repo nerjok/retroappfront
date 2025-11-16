@@ -47,10 +47,10 @@ import { PaginatorModule } from 'primeng/paginator';
     AuthFormComponent,
     MainInfoComponent,
     EditModalComponent,
-    TopicStatusPipe,
     DueDateColorDirective,
   ],
   bootstrap: [AppComponent], imports: [
+    TopicStatusPipe,
     PaginatorModule ,
     MainPageComponent,
     TopicFormComponent,

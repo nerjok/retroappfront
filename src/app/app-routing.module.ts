@@ -19,6 +19,7 @@ import { MainInfoComponent } from './components/main-info/main-info.component';
 import { AuthService } from './services/auth.service';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { SwimlaneComponent } from './components/swimlane/swimlane.component';
+import { GoalsComponent } from './components/goals/goals.component';
 
 const canActivate: CanActivateFn = (
   route: ActivatedRouteSnapshot,
@@ -68,6 +69,7 @@ export const routes: Routes = [
           },
         ],
       },
+      { path: 'goals', component: GoalsComponent },
     ],
   },
 ];
@@ -81,4 +83,4 @@ export const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

@@ -1,9 +1,12 @@
 
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AsyncPipe, JsonPipe } from '@angular/common';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbDate, NgbDateStruct, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { map } from 'rxjs';
+import { GoalsService } from 'src/app/services/goals.service';
 import { Topic, TopicsService } from 'src/app/services/topics.service';
 import { SimpleFormGroupComponent } from 'src/app/shared/components/simple-form-group/simple-form-group.component';
 import { TopicStatus, topicStatus } from 'src/app/shared/models/topic-status.enum';
@@ -12,7 +15,7 @@ import { TopicStatus, topicStatus } from 'src/app/shared/models/topic-status.enu
     selector: 'app-topic-form',
     templateUrl: './topic-form.component.html',
     styleUrls: ['./topic-form.component.scss'],
-    imports: [ReactiveFormsModule, SimpleFormGroupComponent, NgbModule, NgSelectModule],
+    imports: [ReactiveFormsModule, SimpleFormGroupComponent, NgbModule, NgSelectModule, AsyncPipe, JsonPipe],
     standalone: true,
 })
 export class TopicFormComponent implements OnInit {
@@ -24,7 +27,15 @@ export class TopicFormComponent implements OnInit {
     id: FormControl<string | null>;
     dueDate: FormControl<NgbDateStruct | null>;
     status: FormControl<TopicStatus | null>
+    goalId: FormControl<string | null>;
   }>;
+
+  goalsService = inject(GoalsService);
+
+  goals$ = this.goalsService.goals().pipe(map((data) => data.data.map((goal) => ({
+    title: goal.name,
+    value: goal.id,
+  }))));
   @Input() topic?: Topic | undefined;
 
   @Output() topicUpdated = new EventEmitter();
@@ -54,6 +65,7 @@ export class TopicFormComponent implements OnInit {
       status: new FormControl<TopicStatus | null>(this.topic?.status ?? TopicStatus.New, [
         Validators.required,
       ]),
+      goalId: new FormControl<string | null>(this.topic?.goalId ?? null),
     });
 
     if(this.topic){
