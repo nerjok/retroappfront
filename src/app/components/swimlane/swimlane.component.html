@@ -1,18 +1,15 @@
-<div class="full-width">
-
-</div>
-@let items2 = items$  | async;
+<div class="full-width"></div>
+@let items2 = items$ | async;
 
 <b>Events:</b> {{ items2?.length }}
-@if(displaySwimlane()){
-  <ngx-ts
-    [items]="(items$ | async)  ?? []"
-    [periods]="periods"
-    [sections]="sections"
-    [events]="events"
-    [showBusinessDayOnly]="false"
-    [allowDragging]="true"
-    [showGoto]="false"
-    [start]="start"
-  ></ngx-ts>
-}
+
+<ngx-ts
+  [items]="(items$ | async) ?? []"
+  [periods]="periods"
+  [sections]="sections"
+  [events]="events"
+  [showBusinessDayOnly]="false"
+  [allowDragging]="true"
+  [showGoto]="false"
+  [start]="start"
+></ngx-ts>

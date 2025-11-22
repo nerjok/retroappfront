@@ -1,8 +1,23 @@
 import { AsyncPipe, JsonPipe } from '@angular/common';
-import { ChangeDetectorRef, Component, inject, OnInit, signal, viewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  inject,
+  OnInit,
+  signal,
+  viewChild,
+} from '@angular/core';
 import moment from 'moment';
 // import { Events, Item, NgxResourceTimelineComponent, NgxResourceTimelineModule, NgxResourceTimelineService, Period, Section } from 'ngx-resource-timeline';
-import { Events, Item, NgxTimeSchedulerComponent, Period, Section, NgxTimeSchedulerModule, NgxTimeSchedulerService } from 'ngx-event-scheduler';
+import {
+  Events,
+  Item,
+  NgxTimeSchedulerComponent,
+  Period,
+  Section,
+  NgxTimeSchedulerModule,
+  NgxTimeSchedulerService,
+} from 'ngx-event-scheduler';
 
 import { BehaviorSubject } from 'rxjs';
 import { Topic, TopicsService } from 'src/app/services/topics.service';
@@ -15,7 +30,6 @@ import { ModalService } from 'src/app/shared/components/modal/modal.service';
   imports: [NgxTimeSchedulerModule, AsyncPipe, JsonPipe],
   templateUrl: './swimlane.component.html',
   styleUrl: './swimlane.component.scss',
-
 })
 export class SwimlaneComponent implements OnInit {
   events: Events = new Events();
@@ -33,17 +47,16 @@ export class SwimlaneComponent implements OnInit {
 
   items$ = new BehaviorSubject<Item[]>([]);
 
-  displaySwimlane = signal(true);
-  constructor(private service: NgxTimeSchedulerService) { }
+  constructor(private service: NgxTimeSchedulerService) {}
 
   ngOnInit() {
-    this.events.SectionClickEvent = (section) => console.log('Section clicked:', section);
+    this.events.SectionClickEvent = (section) =>
+      console.log('Section clicked:', section);
     this.events.ItemClicked = (item) => {
       console.log('Item clicked:', item);
       this.editTopic(item.metadata as Topic);
-    }
+    };
     this.events.ItemDropped = (item) => console.log('Item dropped:', item);
-
 
     this.periods = [
       {
@@ -74,7 +87,7 @@ export class SwimlaneComponent implements OnInit {
         classes: '',
         timeFrameOverall: 1440 * 14,
         timeFramePeriod: 1440,
-      }
+      },
     ];
 
     this.sections = [
@@ -87,63 +100,37 @@ export class SwimlaneComponent implements OnInit {
 
     this.events.PeriodChange = (start, end) => {
       this.onPeriodChange.bind(this)(start, end);
-      // console.log('Period changed:', start.format('YYYY-MM-DD'), 'to', end.format('YYYY-MM-DD'));
-    }
+    };
 
     this.onPeriodChange(
       this.start.clone().utc().startOf('day'),
       this.start.clone().utc().add(4, 'weeks').endOf('day')
     );
-
   }
 
   onPeriodChange(start: moment.Moment, end: moment.Moment) {
-    console.log('Period changed to:', start, end);
     this.topicService.topics(0, start, end).subscribe((data) => {
-      this.displaySwimlane.set(false);
-      console.log('[ topics ]', data);
+
       const items: Item[] = data.data.map((topic, index) => ({
         id: index,
         sectionID: 1,
         name: topic.name,
         start: moment(topic.addedDate).startOf('day'),
         end: moment(topic.dueDate).endOf('day'),
-        classes: moment(topic.dueDate).isBefore(moment()) && topic.status === TopicStatus.InProgress ? 'bg-red' : '',
-        metadata: topic
+        classes:
+          moment(topic.dueDate).isBefore(moment()) &&
+          topic.status === TopicStatus.InProgress
+            ? 'bg-red'
+            : '',
+        metadata: topic,
       }));
       this.items = items;
       this.changeDetectoreRef.markForCheck();
       this.changeDetectoreRef.detectChanges();
-      console.log('this.item', this.items, this.swimalane());
-      // this.items$.next([]);
+
+
       this.items$.next(items);
-      // const swimlane = this.swimalane();
-      // swimlane!.changePeriod(swimlane?.currentPeriod!, false);
-      // swimlane!.ngOnInit();
-      // // swimlane!.refreshView();
-      // // swimlane!.refresh();
-      // // swimlane!.itemPush();
-      // swimlane!.setItemsInSectionItems();
-      // swimlane!.refreshView();
-      // swimlane!['changeDetector'].markForCheck();
-      // swimlane!['changeDetector'].detectChanges();
-      this.displaySwimlane.set(true);
-      // this.service.sectionRemove(1);
-      // setTimeout(() => {
-
-      //   this.service.sectionPush({ name: 'A', id: 1 });
-      //   items.forEach(item => {
-      //     this.service.itemPush(item);
-      //   });
-      // }, 100);
     });
-  }
-
-  reloadData() {
-    this.displaySwimlane.set(true);
-    setTimeout(() => {
-      this.displaySwimlane.set(true);
-    }, 0);
   }
 
   addItem() {
@@ -153,7 +140,7 @@ export class SwimlaneComponent implements OnInit {
       name: 'Item 4',
       start: moment().startOf('day'),
       end: moment().add(3, 'days').endOf('day'),
-      classes: ''
+      classes: '',
     });
   }
 
@@ -166,11 +153,10 @@ export class SwimlaneComponent implements OnInit {
   }
 
   editTopic(topic: Topic): void {
-    this.modalService.show(EditModalComponent, { modalDialogClass: 'modal-dialog-slideoutX modal-dialog-scrollable', scrollable: true, data: topic }).subscribe((data) => {
-      // this.fetchTopics();
-      // this.reloadData();
-    })
-    // this.router.navigate(['edit', topic.id], { state: topic});
+    this.modalService.show(EditModalComponent, {
+      modalDialogClass: 'modal-dialog-slideoutX modal-dialog-scrollable',
+      scrollable: true,
+      data: topic,
+    });
   }
-
 }
